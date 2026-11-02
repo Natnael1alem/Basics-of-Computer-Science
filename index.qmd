@@ -1,5 +1,5 @@
 ---
-title: "Basics of Computer Science"
+title: "Basics of Computer Science Exercises"
 ---
 
 Welcome! this site is a collection of beginner-friendly C programming practice notebooks for the **Basics of Computer Science** course. Each notebook focuses on a specific topic and contains questions that you can use to prepare for exams.
@@ -19,7 +19,4 @@ Welcome! this site is a collection of beginner-friendly C programming practice n
 - **Optional practice:** Questions marked **(Optional)** revisit previously introduced concepts with small variations for additional practice.
 - **Input questions:** Print the exact prompts and labels shown in the expected output.
 - **Follow the Sequence:** Work through the exercises in order, as later questions may build on concepts introduced earlier.
-
-::: {.callout-tip title="LLMs will be your best study partner 👌"}
-Copy the question and its solution into an LLM such as ChatGPT, Claude, or Gemini and ask it to explain step by step how they work. Treat the answer as study support and verify it yourself by reading, or running the code. 
-:::
+- **Ask LLMs:** Copy the question and its solution into an LLM such as ChatGPT, Gemini or Claude and ask it to explain step by step how they work.

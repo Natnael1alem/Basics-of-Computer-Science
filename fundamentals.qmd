@@ -8,7 +8,7 @@ This is the first notebook. It introduces the fundamentals of C programming thro
 
 ## How to use the pack
 
-Work through the exercises in order, since later ones build on earlier ones. For output questions, predict exactly what the program prints (spaces and new lines included) before running it. For programming questions, write the full program, run it, and match the expected output, including any prompts. Questions marked **(Optional)** are extra practice. If a solution is unclear, paste it into an LLM like ChatGPT, Claude, or Gemini for a step-by-step explanation, then verify it by running the code.
+Work through the exercises in order, since later ones build on earlier ones. Attempt the Questions before revealing the answer. If a solution is unclear, ask LLMs for a step-by-step explanation.
 
 ## Part 1 — Printing and Escape Sequences
 
