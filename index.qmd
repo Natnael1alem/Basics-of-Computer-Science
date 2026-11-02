@@ -10,6 +10,7 @@ Welcome! this site is a collection of beginner-friendly C programming practice n
 - [Conditional Statements](conditionals.qmd)
 - [Loops](loops.qmd)
 - [Arrays](arrays.qmd)
+- Functions - to be added
 - Pointers - to be added
 
 ## How to use the notebooks
