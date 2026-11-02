@@ -1,0 +1,1065 @@
+---
+title: "C Fundamentals"
+---
+
+## Description
+
+This is the first notebook. It introduces the fundamentals of C programming through topic-based exercises, starting with basic output and data types and gradually progressing through formatting, arithmetic operations, comparison and logical operators, and user input with `scanf`.
+
+## How to use the pack
+
+Work through the exercises in order, since later ones build on earlier ones. For output questions, predict exactly what the program prints (spaces and new lines included) before running it. For programming questions, write the full program, run it, and match the expected output, including any prompts. Questions marked **(Optional)** are extra practice. If a solution is unclear, paste it into an LLM like ChatGPT, Claude, or Gemini for a step-by-step explanation, then verify it by running the code.
+
+## Part 1 — Printing and Escape Sequences
+
+### 1. Printing One Line
+**Question:** Write a C program that prints `Hello, world!` on one line.
+
+**Expected Output:**
+```text
+Hello, world!
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, world!\n");
+    return 0;
+}
+```
+:::
+
+### 2. Predict the Output — Escape Sequences
+**Question:** Predict the output. Pay attention to `\n`, `\\`, and `\"`.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("A\nBC\nD\\E\n\"quoted\"\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+A
+BC
+D\E
+"quoted"
+```
+The `\n` starts a new line, `\\` prints one backslash, and `\"` prints a quotation mark.
+:::
+
+### 3. Printing Several Lines
+**Question:** Use **one `printf` statement** to print the two lines below, including one space between each label and its value.
+
+**Expected Output:**
+```text
+Name: Samuel
+Level: 1
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Name: Samuel\nLevel: 1\n");
+    return 0;
+}
+```
+:::
+
+### 4. Quotes and Backslashes (Optional)
+**Question:** Write a program that prints this exact line, including the quotation marks:
+
+**Expected Output:**
+```text
+He said, "C is fun!" and saved it to C:\code
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    printf("He said, \"C is fun!\" and saved it to C:\\code\n");
+    return 0;
+}
+```
+:::
+
+## Part 2 — Variables and Basic Data Types
+
+### 5. Create and Print Variables
+**Question:** Create an `int` named `age` with value `22`, a `float` named `height` with value `1.75`, a `char` named `initial` with value `'N'`, and a character array named `city` containing `"Bielefeld"`. Print each value on its own line.
+
+**Expected Output:**
+```text
+22
+1.750000
+N
+Bielefeld
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int age = 22;
+    float height = 1.75f;
+    char initial = 'N';
+    char city[] = "Bielefeld";
+
+    printf("%d\n", age);
+    printf("%f\n", height);
+    printf("%c\n", initial);
+    printf("%s\n", city);
+    return 0;
+}
+```
+:::
+
+### 6. Reassigning Variables (Optional)
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int number = 4;
+    number = 9;
+    number = number + 2;
+    printf("%d\n", number);
+    printf("%d\n", number - 3);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+11
+8
+```
+`number` becomes `9`, then `number = number + 2` makes it `11`. The next line prints `11 - 3`, or `8`.
+:::
+
+### 7. Printing the Beginner Data Types
+**Question:** Declare and print one variable of each type below, using the appropriate `printf` conversion specifier: `int`, `float`, `unsigned int`, `long`, `double`, `long double`, `char`, and `char[]` (a string). Use the values and output shown.
+
+By default, `%f` prints six digits after the decimal point.
+
+Use these values: `-12`, `2.5f`, `300U`, `123456789L`, `3.14159`, `3.1415926535L`, `'A'`, and `"C language"`.
+
+**Expected Output:**
+```text
+-12
+2.500000
+300
+123456789
+3.141590
+3.141593
+A
+C language
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int whole = -12;
+    float small_decimal = 2.5f;
+    unsigned int items = 300U;
+    long large_whole = 123456789L;
+    double decimal = 3.14159;
+    long double extra_precision = 3.1415926535L;
+    char letter = 'A';
+    char message[] = "C language";
+
+    printf("%d\n", whole);
+    printf("%f\n", small_decimal);
+    printf("%u\n", items);
+    printf("%ld\n", large_whole);
+    printf("%f\n", decimal);
+    printf("%Lf\n", extra_precision);
+    printf("%c\n", letter);
+    printf("%s\n", message);
+    return 0;
+}
+```
+:::
+
+### 8. Match Each Value with Its Specifier (Optional)
+**Question:** Predict the output. Identify which specifier is used for each value.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int count = 7;
+    unsigned int items = 12U;
+    long population = 123456789L;
+    char grade = 'A';
+    char course[] = "C";
+
+    printf("%d %u %ld %c %s\n", count, items, population, grade, course);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+7 12 123456789 A C
+```
+`%d` prints an `int`, `%u` an `unsigned int`, `%ld` a `long`, `%c` a character, and `%s` a null-terminated character array (string).
+:::
+
+## Part 3 — Formatting
+
+### 9. Tabs in Output
+**Question:** Predict the output. The `\t` escape sequence inserts a tab.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Name\tScore\n");
+    printf("Mia\t95\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+Name    Score
+Mia     95
+```
+The `\t` escape sequence inserts a tab. Its visual spacing depends on the terminal's tab stops.
+:::
+
+### 10. Decimal Precision
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%.2f\n", 3.14159);
+    printf("%.0f\n", 3.6);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+3.14
+4
+```
+`%.2f` rounds to two digits after the decimal point. `%.0f` rounds to zero digits after the decimal point.
+:::
+
+### 11. String Precision (Optional)
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%.3s\n", "computer");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+com
+```
+`%.3s` prints at most three characters of the string.
+:::
+
+## Part 4 — `char` and Character Codes
+
+### 12. Print a Character and Its Code
+**Question:** Create a `char` named `letter` with value `'A'`. Print the character with `%c`, then its numeric character code with `%d`.
+
+**Expected Output** (on an ASCII-compatible system):
+```text
+A
+65
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    char letter = 'A';
+    printf("%c\n", letter);
+    printf("%d\n", letter);
+    return 0;
+}
+```
+On an ASCII-compatible system, `'A'` has code `65`. Strictly speaking, C does not require every system to use ASCII.
+:::
+
+### 13. Character Arithmetic
+**Question:** Predict the output. Assume an ASCII-compatible system.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%c\n", 'a' + 2);
+    printf("%d\n", 'a' + 2);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output on an ASCII-compatible system:**
+```text
+c
+99
+```
+On such a system, the code for `'a'` is `97`; adding `2` gives `99`, which corresponds to `'c'`.
+:::
+
+### 14. Change a Character by Adding to It (Optional)
+**Question:** Predict the output on an ASCII-compatible system.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    char letter = 'B';
+    letter = letter + 2;
+    printf("%c %d\n", letter, letter);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output on an ASCII-compatible system:**
+```text
+D 68
+```
+`letter = letter + 2` adds two to the character's integer value before storing the result back in `letter`.
+:::
+
+## Part 5 — Arithmetic Operators and Expression Order
+
+### 15. Basic Arithmetic
+**Question:** Write a program that declares `int a = 17` and `int b = 5`, then prints their sum, difference, product, and integer quotient on separate lines.
+
+**Expected Output:**
+```text
+22
+12
+85
+3
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 17;
+    int b = 5;
+
+    printf("%d\n", a + b);
+    printf("%d\n", a - b);
+    printf("%d\n", a * b);
+    printf("%d\n", a / b);
+    return 0;
+}
+```
+:::
+
+### 16. Remainder with `%`
+**Question:** Predict the output. `%` gives the remainder from integer division.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%d\n", 17 % 5);
+    printf("%d\n", 20 % 4);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+2
+0
+```
+`17 / 5` is `3` in integer arithmetic, with remainder `2`. Twenty divides evenly by four, so its remainder is `0`.
+:::
+
+### 17. Operator Precedence
+**Question:** Predict the output. Compare the expression with and without parentheses.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%d\n", 2 + 3 * 4);
+    printf("%d\n", (2 + 3) * 4);
+    printf("%d\n", 20 / 3 * 2);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+14
+20
+12
+```
+Multiplication and division are done before addition. Parentheses force `2 + 3` to happen first. For `20 / 3 * 2`, integer division gives `6`, then `6 * 2` gives `12`; operators at the same precedence are evaluated left to right here.
+:::
+
+### 18. Integer Division vs. Floating-Point Division
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%d\n", 7 / 2);
+    printf("%d\n", 7 % 2);
+    printf("%f\n", 7 / 2.0);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+3
+1
+3.500000
+```
+When both operands are integers, `7 / 2` discards the fractional part. Because `2.0` is a floating-point value, `7 / 2.0` produces `3.5`.
+:::
+
+### 19. Casting Before Division
+**Question:** Predict the output. What does the first `(double)` cast do before the division?
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%f\n", (double) 7 / 2);
+    printf("%f\n", (double) 9 / 2);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+3.500000
+4.500000
+```
+`(double) 7 / 2` converts `7` to `double` before division, so floating-point division is used.
+:::
+
+### 20. Casting Too Late (Optional)
+**Question:** Predict the output. Compare this with Question 19.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%f\n", (double) (7 / 2));
+    printf("%f\n", (double) (9 / 2));
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+3.000000
+4.000000
+```
+The parentheses in `(double) (7 / 2)` make the integer division happen first. The result is `3`, then converted to `3.0`. Casting afterward cannot restore a fractional part that was already discarded.
+:::
+
+### 21. Mixing `int` and `double`
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    double y = 2.5;
+
+    printf("%f\n", x + y);
+    printf("%f\n", x / 2.0);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+7.500000
+2.500000
+```
+When an `int` and a `double` are combined in arithmetic, the integer is converted to `double` for that calculation.
+:::
+
+## Part 6 — Compound Assignment
+
+### 22. Use Compound Assignment Operators
+**Question:** Start with `int number = 20`. Use `+=`, `-=`, `*=`, `/=`, and `%=` in that order. After each operation, print the current value. Use these right-hand values in order: `5`, `3`, `2`, `4`, and `6`.
+
+**Expected Output:**
+```text
+25
+22
+44
+11
+5
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number = 20;
+
+    number += 5;
+    printf("%d\n", number);
+    number -= 3;
+    printf("%d\n", number);
+    number *= 2;
+    printf("%d\n", number);
+    number /= 4;
+    printf("%d\n", number);
+    number %= 6;
+    printf("%d\n", number);
+    return 0;
+}
+```
+:::
+
+### 23. Several Assignments in a Row
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    x += 3;
+    x *= 2;
+    x -= 4;
+    x /= 3;
+    printf("%d\n", x);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+7
+```
+Trace: `10 + 3 = 13`, `13 * 2 = 26`, `26 - 4 = 22`, then integer division `22 / 3 = 7`.
+:::
+
+## Part 7 — Prefix and Postfix
+
+### 24. `x++` vs. `++x`
+**Question:** Predict the output. Track the value of `x` after every statement.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    printf("%d\n", x++);
+    printf("%d\n", x);
+    printf("%d\n", ++x);
+    printf("%d\n", x);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+5
+6
+7
+7
+```
+`x++` evaluates to the old value and then increments `x`. `++x` increments `x` first, then evaluates to the new value. Because each expression is in its own statement, the order is clear.
+:::
+
+### 25. Save the Old and New Values
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    int b = a++;
+    int c = ++a;
+
+    printf("a = %d\n", a);
+    printf("b = %d\n", b);
+    printf("c = %d\n", c);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+a = 7
+b = 5
+c = 7
+```
+`b = a++` stores the old value `5` in `b` and then changes `a` to `6`. Next, `c = ++a` increases `a` to `7` first and stores `7` in `c`.
+:::
+
+### 26. Combine Compound Assignment and Increments (Optional)
+**Question:** Predict the output. Work through each statement from top to bottom.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int value = 3;
+    value += 2;
+    int old_value = value++;
+    int new_value = ++value;
+
+    printf("%d %d %d\n", value, old_value, new_value);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+7 5 7
+```
+`value` goes from `3` to `5`; `old_value` receives `5` while `value` becomes `6`; then `++value` makes it `7` and stores `7` in `new_value`.
+:::
+
+## Part 8 — Comparison and Logical Operators
+
+### 27. Comparison Results
+**Question:** Predict the output. In C, a true comparison prints as `1` and a false comparison prints as `0` when formatted with `%d`.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%d\n", 5 < 8);
+    printf("%d\n", 5 == 8);
+    printf("%d\n", 5 != 8);
+    printf("%d\n", 8 >= 8);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+0
+1
+1
+```
+A true comparison has value `1`; a false comparison has value `0`.
+:::
+
+### 28. `&&`, `||`, and `!`
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%d\n", (4 < 7) && (2 == 2));
+    printf("%d\n", (4 > 7) || (2 == 2));
+    printf("%d\n", !(3 < 9));
+    printf("%d\n", !(3 > 9));
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+1
+0
+1
+```
+`&&` is true only when both sides are true. `||` is true when at least one side is true. `!` reverses a truth value.
+:::
+
+### 29. Combine Logical Operators (Optional)
+**Question:** Predict the output. Remember that `&&` is evaluated before `||` unless parentheses change the order.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 5, b = 2, c = 0;
+
+    printf("%d\n", a > 3 && b < 3);
+    printf("%d\n", a < 3 || b == 2);
+    printf("%d\n", !(c != 0));
+    printf("%d\n", a == 5 && b == 3 || c == 0);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+1
+1
+1
+```
+In the last expression, `a == 5 && b == 3` is false (`0`), but `c == 0` is true (`1`), so the full expression is `0 || 1`, which is `1`.
+:::
+
+## Part 9 — User Input with `scanf`
+
+### 30. Read One Integer
+**Question:** Write a program that asks the user for an integer, reads it with `scanf`, then prints `You entered: ` followed by the number.
+
+**Example Input:**
+```text
+23
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer: You entered: 23
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+    printf("You entered: %d\n", number);
+    return 0;
+}
+```
+With input `23`, the program's printed text is `Enter an integer: You entered: 23` (the typed input itself is not produced by `printf`).
+:::
+
+### 31. Read Two Integers
+**Question:** Read two integers into `a` and `b`. Print their sum and the result of `a - b`.
+
+**Example Input:**
+```text
+10 4
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter two integers: Sum: 14
+Difference: 6
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Enter two integers: ");
+    scanf("%d %d", &a, &b);
+    printf("Sum: %d\n", a + b);
+    printf("Difference: %d\n", a - b);
+    return 0;
+}
+```
+With input `10 4`, the program prints:
+```text
+Enter two integers: Sum: 14
+Difference: 6
+```
+:::
+
+### 32. Read a `float` and a `double`
+**Question:** Use `scanf` to read a `float` temperature and a `double` distance. Print both values using the default `%f` format. Pay attention to the format strings used by `scanf` and `printf`.
+
+**Example Input:**
+```text
+21.75 3.14159
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter temperature and distance: Temperature: 21.750000
+Distance: 3.141590
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    float temperature;
+    double distance;
+
+    printf("Enter temperature and distance: ");
+    scanf("%f %lf", &temperature, &distance);
+    printf("Temperature: %f\n", temperature);
+    printf("Distance: %f\n", distance);
+    return 0;
+}
+```
+With input `21.75 3.14159`, the program prints:
+```text
+Enter temperature and distance: Temperature: 21.750000
+Distance: 3.141590
+```
+:::
+
+### 33. Read a Character and an Integer
+**Question:** Read a character and then an integer. Use a leading space in the `scanf` format before `%c` so it skips leftover whitespace. Print the character, its numeric code, and the integer. Assume an ASCII-compatible system for the code shown.
+
+**Example Input:**
+```text
+A 12
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a character and an integer: Letter: A
+Code: 65
+Number: 12
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    char letter;
+    int number;
+
+    printf("Enter a character and an integer: ");
+    scanf(" %c %d", &letter, &number);
+    printf("Letter: %c\n", letter);
+    printf("Code: %d\n", letter);
+    printf("Number: %d\n", number);
+    return 0;
+}
+```
+With input `A 12` on an ASCII-compatible system, the program prints:
+```text
+Enter a character and an integer: Letter: A
+Code: 65
+Number: 12
+```
+The space before `%c` tells `scanf` to skip whitespace (such as a newline) before reading the character.
+:::
+
+### 34. Read a Word into a Character Array
+**Question:** Create `char name[30]`, read one word with `scanf`, and print `Hello, ` followed by the word and `!`. Assume the word is at most 29 characters long.
+
+**Example Input:**
+```text
+Bielefeld
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter one word: Hello, Bielefeld!
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    char name[30];
+
+    printf("Enter one word: ");
+    scanf("%s", name);
+    printf("Hello, %s!\n", name);
+    return 0;
+}
+```
+With input `Bielefeld`, the program prints:
+```text
+Enter one word: Hello, Bielefeld!
+```
+`%s` reads one word, stopping at whitespace. With the stated maximum of 29 characters, the word and its terminating `\0` fit in the array.
+:::
+
+### 35. A Two-Number Calculator
+**Question:** Read two integers. Print their sum, product, integer quotient, decimal quotient, and remainder. For this exercise, the second input will not be zero.
+
+**Example Input:**
+```text
+9 2
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter two integers (second must not be zero): Sum: 11
+Product: 18
+Integer quotient: 4
+Decimal quotient: 4.500000
+Remainder: 1
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int a, b;
+
+    printf("Enter two integers (second must not be zero): ");
+    scanf("%d %d", &a, &b);
+    printf("Sum: %d\n", a + b);
+    printf("Product: %d\n", a * b);
+    printf("Integer quotient: %d\n", a / b);
+    printf("Decimal quotient: %f\n", (double) a / b);
+    printf("Remainder: %d\n", a % b);
+    return 0;
+}
+```
+With input `9 2`, the program prints:
+```text
+Enter two integers (second must not be zero): Sum: 11
+Product: 18
+Integer quotient: 4
+Decimal quotient: 4.500000
+Remainder: 1
+```
+:::
+
+## Part 10 — Mixed Practice
+
+### 36. Predict the Output — Several Concepts Together
+**Question:** Predict every line. This combines compound assignment, character arithmetic, integer division, and casting.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int total = 7;
+    double price = 2.5;
+    char letter = 'a';
+
+    total += 3;
+    printf("%d\n", total);
+    printf("%f\n", total + price);
+    printf("%c\n", letter + 2);
+    printf("%d\n", 7 / 2);
+    printf("%f\n", (double) 7 / 2);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output on an ASCII-compatible system:**
+```text
+10
+12.500000
+c
+3
+3.500000
+```
+`total += 3` changes `total` to `10`. `total + price` is a floating-point calculation. `'a' + 2` corresponds to `'c'` on ASCII-compatible systems. `7 / 2` is integer division, whereas `(double) 7 / 2` is floating-point division.
+:::
+
+### 37. Final Challenge — Input, Compound Assignment, and Average
+**Question:** Read two integers. Start `total` with the first number, add the second number using `+=`, then calculate their average as a `double`. Print the total and average.
+
+**Example Input:**
+```text
+7 10
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter two integers: Total: 17
+Average: 8.500000
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int first, second;
+    printf("Enter two integers: ");
+    scanf("%d %d", &first, &second);
+
+    int total = first;
+    total += second;
+    double average = (double) total / 2;
+
+    printf("Total: %d\n", total);
+    printf("Average: %f\n", average);
+    return 0;
+}
+```
+With input `7 10`, the program prints:
+```text
+Enter two integers: Total: 17
+Average: 8.500000
+```
+:::

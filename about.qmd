@@ -2,4 +2,23 @@
 title: "About"
 ---
 
-About this site
+## About this site
+
+This is a beginner-friendly collection of practice questions for the **Basics of Computer Science** course at Hochschule Bielefeld (HSBI). It focuses on programming fundamentals in C and helps you prepare for exams.
+
+## Who I am
+
+I am **Natnael Fesseha**, a Mechatronics and Automation student at Hochschule Bielefeld (HSBI), Campus Gütersloh.
+
+I also work as a student assistant at HSBI, where I support the C and C++ programming courses and run tutorials for students.
+
+## Contact
+
+Found a mistake, have a question, or want to contact? Send me an email:
+
+📧 [alemnatnael20@gmail.com](mailto:alemnatnael20@gmail.com)
+
+
+::: {.callout-important title="Independent student project"}
+This site is **not an official HSBI resource**. It is a student-made study aid, and any mistakes are my own, not the university's.
+:::
