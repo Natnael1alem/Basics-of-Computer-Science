@@ -1,0 +1,1021 @@
+---
+title: "C Arrays"
+---
+
+## Description
+
+This is the fourth notebook. It introduces arrays in C. It starts with the basics without loops (declaring, reading, and changing single elements, and character arrays as strings), then combines arrays with loops for sums, searching, reversing, and rotating, and finally uses an array to convert between decimal and binary.
+
+## How to use the pack
+
+Work through the exercises in order, since later ones build on earlier ones. Attempt the Questions before revealing the answer. If a solution is unclear, ask LLMs for a step-by-step explanation.
+
+## Part 1 — Array Basics (Without Loops)
+
+An array stores several values of the same type. Indexes start at `0`, so an array of length `5` has valid indexes `0` to `4`. Reading or writing outside that range is undefined behavior. For this part, access every element directly and do not use a loop.
+
+### 1. Read Selected Elements
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5] = {10, 20, 30, 40, 50};
+    printf("%d\n", values[0]);
+    printf("%d\n", values[2]);
+    printf("%d\n", values[4]);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+10
+30
+50
+```
+Index `0` is the first element, so `values[2]` is the third element and `values[4]` is the last one.
+:::
+
+### 2. Update an Element
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int values[4] = {3, 6, 9, 15};
+    values[1] = 100;
+    values[3] = values[0] + values[2];
+    printf("%d %d %d %d\n", values[0], values[1], values[2], values[3]);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+3 100 9 12
+```
+`values[1]` becomes `100`. `values[3]` is replaced by `3 + 9`, which is `12`.
+:::
+
+### 3. Partial Initialization
+**Question:** Predict the output. Not every element of the array has an initial value in the code.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int v[5] = {1, 2};
+    printf("%d %d %d %d %d\n", v[0], v[1], v[2], v[3], v[4]);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1 2 0 0 0
+```
+When an initializer list is shorter than the array, the remaining elements are set to `0`. Without any initializer, the elements of a local array would hold unpredictable values.
+:::
+
+### 4. Print Specific Elements
+**Question:** Create an `int` array containing `12, 24, 36, 48, 60`. Without a loop, print the first, middle, and last elements, each on its own line.
+
+**Expected Output:**
+```text
+12
+36
+60
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5] = {12, 24, 36, 48, 60};
+    printf("%d\n", values[0]);
+    printf("%d\n", values[2]);
+    printf("%d\n", values[4]);
+    return 0;
+}
+```
+:::
+
+### 5. Read Three Values and Print Them Backwards
+**Question:** Read three integers into three elements of an array. Without a loop, print the third, then the second, then the first, separated by spaces.
+
+**Example Input:**
+```text
+4 8 15
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter three integers: 15 8 4
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[3];
+    printf("Enter three integers: ");
+    scanf("%d %d %d", &values[0], &values[1], &values[2]);
+    printf("%d %d %d\n", values[2], values[1], values[0]);
+    return 0;
+}
+```
+`scanf` needs the address of each element, so each one gets an `&`.
+:::
+
+### 6. Swap the First and Last Elements
+**Question:** Create the array `{10, 20, 30, 40}`. Swap the first and last elements using a temporary variable, then print all four elements on one line separated by spaces.
+
+**Expected Output:**
+```text
+40 20 30 10
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[4] = {10, 20, 30, 40};
+
+    int temp = values[0];
+    values[0] = values[3];
+    values[3] = temp;
+
+    printf("%d %d %d %d\n", values[0], values[1], values[2], values[3]);
+    return 0;
+}
+```
+Writing `values[0] = values[3]; values[3] = values[0];` would lose the original first value, so it is saved in `temp` first.
+:::
+
+### 7. Sum and Average of Three Values
+**Question:** Read three integers into an array. Without a loop, print their sum, and their average with two decimal places.
+
+**Example Input:**
+```text
+4 7 10
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter three integers: Sum: 21
+Average: 7.00
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[3];
+    printf("Enter three integers: ");
+    scanf("%d %d %d", &values[0], &values[1], &values[2]);
+
+    int sum = values[0] + values[1] + values[2];
+    printf("Sum: %d\n", sum);
+    printf("Average: %.2f\n", (double) sum / 3);
+    return 0;
+}
+```
+`(double) sum / 3` prevents integer division. For input `4 7 9`, the average is `6.67`, not `6`.
+:::
+
+### 8. Array Length (Optional)
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int values[] = {4, 8, 12, 16, 20, 24};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+    printf("%d\n", length);
+    printf("%d\n", values[length - 1]);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+6
+24
+```
+`sizeof(values)` is the size of the whole array in bytes, and `sizeof(values[0])` is the size of one element. Their quotient is the number of elements. The last element always has the index `length - 1`.
+:::
+
+## Part 2 — Character Arrays and Strings
+
+In C, a string is a `char` array that ends with the special character `'\0'`. A string literal such as `"Ada"` adds that terminator automatically.
+
+### 9. Character Array and String
+**Question:** Create `char name[] = "Ada";`. Print the whole string on one line, then its first character on the next line.
+
+**Expected Output:**
+```text
+Ada
+A
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    char name[] = "Ada";
+    printf("%s\n", name);
+    printf("%c\n", name[0]);
+    return 0;
+}
+```
+Use `%s` for the whole string and `%c` for one character. A string uses double quotes, and a single character uses single quotes.
+:::
+
+### 10. Change a Character
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    char word[] = {'C', 'a', 't', '\0'};
+    printf("%s\n", word);
+    word[0] = 'B';
+    printf("%s\n", word);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+Cat
+Bat
+```
+`%s` prints characters until it reaches `'\0'`. Individual characters of a `char` array can be changed like any other array element.
+:::
+
+### 11. The Hidden Terminator (Optional)
+**Question:** Predict the output. Assume `%zu` is the correct specifier for a size.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    char name[] = "Ada";
+    printf("%zu\n", sizeof(name));
+    printf("%d\n", name[3]);
+    printf("%c%c\n", name[1], name[2]);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+4
+0
+da
+```
+The array has four elements: `'A'`, `'d'`, `'a'`, and the terminator `'\0'`, whose numeric value is `0`. The text has three visible characters, but the array needs four slots.
+:::
+
+## Part 3 — Arrays with Loops
+
+Now combine a loop with an array index. Use a variable `length` for the number of elements. For an array declared in the same function, `sizeof(array) / sizeof(array[0])` gives that length.
+
+### 12. Print Every Element
+**Question:** Create an array containing `5, 10, 15, 20, 25`. Use a loop to print every element on its own line.
+
+**Expected Output:**
+```text
+5
+10
+15
+20
+25
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[] = {5, 10, 15, 20, 25};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+
+    for (int i = 0; i < length; i++) {
+        printf("%d\n", values[i]);
+    }
+    return 0;
+}
+```
+The loop runs for `i` from `0` to `length - 1`. Using `i < length` (not `<=`) stops before the invalid index `length`.
+:::
+
+### 13. Change Elements While Looping
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int values[] = {2, 4, 6};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+
+    for (int i = 0; i < length; i++) {
+        values[i] = values[i] * 2;
+        printf("%d\n", values[i]);
+    }
+    printf("%d\n", values[0] + values[2]);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+4
+8
+12
+16
+```
+Each element is doubled and printed, so the array becomes `{4, 8, 12}`. The last line prints `4 + 12`.
+:::
+
+### 14. Read and Echo Five Values
+**Question:** Read five integers into an array with one loop. Then use a second loop to print them in the same order, separated by single spaces.
+
+**Example Input:**
+```text
+3 9 -2 14 6
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five integers: 3 9 -2 14 6
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5];
+    printf("Enter five integers: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &values[i]);
+    }
+
+    for (int i = 0; i < 5; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+The first loop fills the array and the second prints it. The space is printed before every value except the first.
+:::
+
+### 15. Sum and Average
+**Question:** Read five integers into an array, asking for each value with `Enter value 1: `, `Enter value 2: `, and so on. Print their sum and their average with two decimal places. Do not calculate the average with integer division.
+
+**Example Input:**
+```text
+4 8 15 16 23
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter value 1: Enter value 2: Enter value 3: Enter value 4: Enter value 5: Sum: 66
+Average: 13.20
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5];
+    int sum = 0;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Enter value %d: ", i + 1);
+        scanf("%d", &values[i]);
+        sum += values[i];
+    }
+
+    printf("Sum: %d\n", sum);
+    printf("Average: %.2f\n", (double) sum / 5);
+    return 0;
+}
+```
+The prompt shows `i + 1` because people count from `1`, while the array index starts at `0`.
+:::
+
+### 16. Smallest and Largest
+**Question:** Read five integers into an array and print the smallest and the largest. Do not assume the values are positive. Initialize both results from the first array element.
+
+**Example Input:**
+```text
+7 -3 12 0 5
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five integers: Smallest: -3
+Largest: 12
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5];
+    printf("Enter five integers: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &values[i]);
+    }
+
+    int smallest = values[0];
+    int largest = values[0];
+    for (int i = 1; i < 5; i++) {
+        if (values[i] < smallest) {
+            smallest = values[i];
+        }
+        if (values[i] > largest) {
+            largest = values[i];
+        }
+    }
+    printf("Smallest: %d\n", smallest);
+    printf("Largest: %d\n", largest);
+    return 0;
+}
+```
+Starting with `0` would give a wrong answer if all values were positive (for the smallest) or all negative (for the largest). The second loop starts at `1` because `values[0]` is already the starting value.
+:::
+
+### 17. Count Even and Odd Values (Optional)
+**Question:** Read eight integers into an array. Count how many are even and how many are odd, and print both counts.
+
+**Example Input:**
+```text
+4 7 10 3 8 12 2 9
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter eight integers: Even: 5
+Odd: 3
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[8];
+    int even = 0, odd = 0;
+
+    printf("Enter eight integers: ");
+    for (int i = 0; i < 8; i++) {
+        scanf("%d", &values[i]);
+    }
+
+    for (int i = 0; i < 8; i++) {
+        if (values[i] % 2 == 0) {
+            even++;
+        } else {
+            odd++;
+        }
+    }
+    printf("Even: %d\n", even);
+    printf("Odd: %d\n", odd);
+    return 0;
+}
+```
+:::
+
+### 18. Search an Array
+**Question:** Read five integers into an array, then read a target value. Print `Found` if the target appears in the array, otherwise `Not found`. Stop the loop with `break` as soon as a match is found.
+
+**Example Input:**
+```text
+8 3 11 5 20
+5
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five integers: Target: Found
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5], target, found = 0;
+
+    printf("Enter five integers: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &values[i]);
+    }
+    printf("Target: ");
+    scanf("%d", &target);
+
+    for (int i = 0; i < 5; i++) {
+        if (values[i] == target) {
+            found = 1;
+            break;
+        }
+    }
+
+    if (found) {
+        printf("Found\n");
+    } else {
+        printf("Not found\n");
+    }
+    return 0;
+}
+```
+Declaring `found` before the loop lets the code after the loop use it. The `break` skips the remaining elements once a match is known.
+:::
+
+### 19. Position of the Largest Value
+**Question:** Read five integers into an array. Print the largest value and its index. If the largest value appears more than once, report the first index.
+
+**Example Input:**
+```text
+4 9 2 9 1
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five integers: Largest: 9 at index 1
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5];
+    printf("Enter five integers: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &values[i]);
+    }
+
+    int largest = values[0];
+    int index = 0;
+    for (int i = 1; i < 5; i++) {
+        if (values[i] > largest) {
+            largest = values[i];
+            index = i;
+        }
+    }
+    printf("Largest: %d at index %d\n", largest, index);
+    return 0;
+}
+```
+Using `>` and not `>=` keeps the first index when the largest value appears twice.
+:::
+
+### 20. Count Occurrences
+**Question:** Read eight integers into an array, then read a target value. Print how many times the target appears.
+
+**Example Input:**
+```text
+3 5 3 7 3 1 5 3
+3
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter eight integers: Target: Count: 4
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[8], target, count = 0;
+
+    printf("Enter eight integers: ");
+    for (int i = 0; i < 8; i++) {
+        scanf("%d", &values[i]);
+    }
+    printf("Target: ");
+    scanf("%d", &target);
+
+    for (int i = 0; i < 8; i++) {
+        if (values[i] == target) {
+            count++;
+        }
+    }
+    printf("Count: %d\n", count);
+    return 0;
+}
+```
+Unlike Question 18, this loop has no `break`, because every element has to be checked.
+:::
+
+### 21. Print an Array in Reverse Order
+**Question:** Create the array `{2, 4, 6, 8, 10, 12}`. Use a loop to print the values from last to first, separated by single spaces. Do not change the array.
+
+**Expected Output:**
+```text
+12 10 8 6 4 2
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[] = {2, 4, 6, 8, 10, 12};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+
+    for (int i = length - 1; i >= 0; i--) {
+        if (i < length - 1) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+The loop starts at the last valid index `length - 1` and counts down to `0`.
+:::
+
+### 22. Reverse an Array in Place
+**Question:** Read six integers into an array. Reverse the elements inside that same array, then print it. Use one loop that swaps the first with the last, the second with the second-to-last, and so on. Do not swap any element more than once.
+
+**Example Input:**
+```text
+1 2 3 4 5 6
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter six integers: 6 5 4 3 2 1
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[6];
+    printf("Enter six integers: ");
+    for (int i = 0; i < 6; i++) {
+        scanf("%d", &values[i]);
+    }
+
+    for (int i = 0; i < 6 / 2; i++) {
+        int temp = values[i];
+        values[i] = values[5 - i];
+        values[5 - i] = temp;
+    }
+
+    for (int i = 0; i < 6; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+The swap loop only runs for half the array (`6 / 2 = 3` swaps). Going through the whole array would swap every pair twice and restore the original order.
+:::
+
+### 23. Make a Doubled Copy (Optional)
+**Question:** Read five integers into `values`. Store twice each value in a second array called `doubled`. Print `values` on one line and `doubled` on the next, with single spaces between the numbers.
+
+**Example Input:**
+```text
+1 2 3 4 5
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five integers: 1 2 3 4 5
+2 4 6 8 10
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5], doubled[5];
+
+    printf("Enter five integers: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &values[i]);
+        doubled[i] = values[i] * 2;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+    for (int i = 0; i < 5; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", doubled[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+:::
+
+### 24. Rotate Left by One
+**Question:** Read five integers into an array. Move every element one position to the left, and move the first element to the end. Print the result on one line separated by spaces.
+
+**Example Input:**
+```text
+1 2 3 4 5
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five integers: 2 3 4 5 1
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5];
+    printf("Enter five integers: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &values[i]);
+    }
+
+    int first = values[0];
+    for (int i = 0; i < 4; i++) {
+        values[i] = values[i + 1];
+    }
+    values[4] = first;
+
+    for (int i = 0; i < 5; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+The first value is saved in `first` because the loop overwrites `values[0]`. The shifting loop stops at index `3`, so `values[i + 1]` never goes past the last element.
+:::
+
+## Part 4 — Decimal and Binary Conversion
+
+These exercises combine integer division, remainder, loops, conditions, and arrays. To convert to binary, repeatedly divide by `2`, store each remainder, and print the stored remainders backwards.
+
+### 25. Decimal Integer to Binary
+**Question:** Read a non-negative decimal integer and print its binary representation. Store the remainders of the repeated division by `2` in an `int` array, then print them in reverse order. Handle input `0` explicitly so the output is `0`. Assume the number fits in an `int`.
+
+**Example Input:**
+```text
+13
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a non-negative integer: Binary: 1101
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    int bits[32];
+    int count = 0;
+    printf("Enter a non-negative integer: ");
+    scanf("%d", &number);
+
+    if (number < 0) {
+        printf("Please enter a non-negative integer\n");
+        return 0;
+    }
+    if (number == 0) {
+        printf("Binary: 0\n");
+        return 0;
+    }
+
+    while (number > 0) {
+        bits[count] = number % 2;
+        count++;
+        number = number / 2;
+    }
+
+    printf("Binary: ");
+    for (int i = count - 1; i >= 0; i--) {
+        printf("%d", bits[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+For `13`, the remainders are `1`, `0`, `1`, `1` in that order. Printing them backwards gives `1101`. The array has room for `32` bits, which is enough for any `int`.
+:::
+
+### 26. Binary Integer to Decimal
+**Question:** Read a non-negative binary number as an integer, for example `1011`, and convert it to decimal. Process the digits from right to left with `% 10` and `/ 10`. The rightmost digit has place value `1`, the next `2`, then `4`, `8`, and so on. If any digit is not `0` or `1`, print `Invalid binary number`.
+
+**Example Input:**
+```text
+1011
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a non-negative binary integer: Decimal: 11
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int binary;
+    int decimal = 0;
+    int place = 1;
+    int valid = 1;
+    printf("Enter a non-negative binary integer: ");
+    scanf("%d", &binary);
+
+    if (binary < 0) {
+        printf("Invalid binary number\n");
+        return 0;
+    }
+
+    while (binary > 0) {
+        int digit = binary % 10;
+        if (digit != 0 && digit != 1) {
+            valid = 0;
+        } else {
+            decimal += digit * place;
+            place *= 2;
+        }
+        binary /= 10;
+    }
+
+    if (valid) {
+        printf("Decimal: %d\n", decimal);
+    } else {
+        printf("Invalid binary number\n");
+    }
+    return 0;
+}
+```
+For `1011`, the digits from the right are `1`, `1`, `0`, `1`, which give `1 + 2 + 0 + 8 = 11`. Input `1021` prints `Invalid binary number`, and input `0` prints `Decimal: 0`.
+:::
+
+## Part 5 — Mixed Practice
+
+### 27. Score Statistics
+**Question:** Read five scores into an array. Print the highest score, the lowest score, the average with two decimal places, and how many scores are above the average.
+
+**Example Input:**
+```text
+70 85 90 60 95
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five scores: Highest: 95
+Lowest: 60
+Average: 80.00
+Above average: 3
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int scores[5];
+    int sum = 0;
+
+    printf("Enter five scores: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &scores[i]);
+        sum += scores[i];
+    }
+
+    int highest = scores[0];
+    int lowest = scores[0];
+    for (int i = 1; i < 5; i++) {
+        if (scores[i] > highest) {
+            highest = scores[i];
+        }
+        if (scores[i] < lowest) {
+            lowest = scores[i];
+        }
+    }
+
+    double average = (double) sum / 5;
+    int above = 0;
+    for (int i = 0; i < 5; i++) {
+        if (scores[i] > average) {
+            above++;
+        }
+    }
+
+    printf("Highest: %d\n", highest);
+    printf("Lowest: %d\n", lowest);
+    printf("Average: %.2f\n", average);
+    printf("Above average: %d\n", above);
+    return 0;
+}
+```
+The average is only known after all scores are read, so counting the scores above it needs a separate loop. Here `85`, `90`, and `95` are above `80.00`.
+:::
+
+### 28. Final Challenge — Sort Five Numbers (Optional)
+**Question:** Read five integers into an array and print them in ascending order. Use bubble sort: repeatedly compare neighbouring elements and swap them if the left one is larger. Each pass moves the largest remaining value to the end.
+
+**Example Input:**
+```text
+5 2 9 1 7
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter five integers: 1 2 5 7 9
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int values[5];
+    printf("Enter five integers: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &values[i]);
+    }
+
+    for (int pass = 0; pass < 4; pass++) {
+        for (int i = 0; i < 4 - pass; i++) {
+            if (values[i] > values[i + 1]) {
+                int temp = values[i];
+                values[i] = values[i + 1];
+                values[i + 1] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < 5; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+After pass `0`, the largest value is at the end, so the next pass can stop one position earlier (`i < 4 - pass`). The comparison `values[i + 1]` never goes past the last element.
+:::

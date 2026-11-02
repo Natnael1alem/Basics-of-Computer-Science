@@ -1,0 +1,1450 @@
+---
+title: "C Loops"
+---
+
+## Description
+
+This is the third notebook. It introduces repetition in C through the `while`, `for`, and `do while` loops, then covers `break`, `continue`, and `return`, classic loop problems such as Fibonacci numbers and patterns, menus that repeat, and finally small games that loop until the player wins or loses.
+
+## How to use the pack
+
+Work through the exercises in order, since later ones build on earlier ones. Attempt the Questions before revealing the answer. If a solution is unclear, ask LLMs for a step-by-step explanation.
+
+## Part 1 — The `while` Loop
+
+A `while` loop checks its condition **before** every repetition. Make sure something inside the loop eventually makes the condition false.
+
+### 1. Count from 1 to 5
+**Question:** Use a `while` loop to print the numbers `1` through `5`, each on its own line.
+
+**Expected Output:**
+```text
+1
+2
+3
+4
+5
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 1;
+    while (i <= 5) {
+        printf("%d\n", i);
+        i++;
+    }
+    return 0;
+}
+```
+The counter `i` starts at `1`, and `i++` moves it toward the end. Forgetting `i++` would create an infinite loop.
+:::
+
+### 2. A Loop That Never Runs
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 10;
+    while (i < 5) {
+        printf("%d\n", i);
+        i++;
+    }
+    printf("done\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+done
+```
+The condition `10 < 5` is false from the start, so the loop body never runs.
+:::
+
+### 3. Trace a `while` Loop
+**Question:** Predict the output. Track both variables after every repetition.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 1, total = 0;
+    while (i <= 4) {
+        total += i;
+        i++;
+    }
+    printf("%d %d\n", i, total);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+5 10
+```
+`total` becomes `1`, `3`, `6`, then `10`. The loop stops when `i` reaches `5`, so `i` is `5` after the loop, one more than the last value that was added.
+:::
+
+### 4. Sum from 1 to N
+**Question:** Read a positive integer `N`. Use a loop to calculate `1 + 2 + ... + N` and print the sum. Assume the result fits in an `int`.
+
+**Example Input:**
+```text
+4
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a positive integer: Sum: 10
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n, i = 1;
+    int sum = 0;
+    printf("Enter a positive integer: ");
+    scanf("%d", &n);
+
+    while (i <= n) {
+        sum += i;
+        i++;
+    }
+    printf("Sum: %d\n", sum);
+    return 0;
+}
+```
+`sum` must start at `0` before the loop. This pattern of building up a total is called an accumulator.
+:::
+
+### 5. Sum Until the User Enters 0
+**Question:** Keep reading integers and adding them. Stop when the user enters `0`, and do not add the zero. Print the final sum. Assume the user enters at least one number before the `0`.
+
+**Example Input:**
+```text
+5
+3
+0
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a number (0 to stop): Enter a number (0 to stop): Enter a number (0 to stop): Sum: 8
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    int sum = 0;
+    printf("Enter a number (0 to stop): ");
+    scanf("%d", &number);
+
+    while (number != 0) {
+        sum += number;
+        printf("Enter a number (0 to stop): ");
+        scanf("%d", &number);
+    }
+    printf("Sum: %d\n", sum);
+    return 0;
+}
+```
+The first number is read before the loop so the condition has a value to check. The next number is read at the end of each repetition. A stopping value like `0` is called a sentinel.
+:::
+
+### 6. Count the Digits (Optional)
+**Question:** Read a positive integer and print how many digits it has. Repeatedly divide it by `10`.
+
+**Example Input:**
+```text
+4096
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a positive integer: Digits: 4
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n, count = 0;
+    printf("Enter a positive integer: ");
+    scanf("%d", &n);
+
+    while (n > 0) {
+        n /= 10;
+        count++;
+    }
+    printf("Digits: %d\n", count);
+    return 0;
+}
+```
+Integer division by `10` removes the last digit: `4096` becomes `409`, `40`, `4`, and finally `0`.
+:::
+
+## Part 2 — The `for` Loop
+
+A `for` loop puts the three parts of a counting loop in one line: `for (start; condition; update)`.
+
+### 7. Count Down (Optional)
+**Question:** Use a `for` loop to print `5`, `4`, `3`, `2`, `1` on separate lines, then print `Go!`.
+
+**Expected Output:**
+```text
+5
+4
+3
+2
+1
+Go!
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 5; i >= 1; i--) {
+        printf("%d\n", i);
+    }
+    printf("Go!\n");
+    return 0;
+}
+```
+:::
+
+### 8. Step Size
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 0; i < 10; i += 3) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+0
+3
+6
+9
+```
+The update part can be any change, here `i += 3`. After `9`, the next value is `12`, which fails `i < 10`.
+:::
+
+### 9. Sum a Chosen Number of Inputs
+**Question:** First read how many numbers the user will enter, then read exactly that many integers, add them, and print the total. Assume the count is at least `1`. Do not use an array.
+
+**Example Input:**
+```text
+3
+4
+10
+-2
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+How many numbers? Number 1: Number 2: Number 3: Total: 12
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int count, number;
+    int sum = 0;
+    printf("How many numbers? ");
+    scanf("%d", &count);
+
+    for (int i = 1; i <= count; i++) {
+        printf("Number %d: ", i);
+        scanf("%d", &number);
+        sum += number;
+    }
+    printf("Total: %d\n", sum);
+    return 0;
+}
+```
+Use `for` when you know in advance how many repetitions you need.
+:::
+
+### 10. Multiplication Table
+**Question:** Read an integer and print its multiplication table from `number x 1` through `number x 10`.
+
+**Example Input:**
+```text
+7
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer: 7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+7 x 4 = 28
+7 x 5 = 35
+7 x 6 = 42
+7 x 7 = 49
+7 x 8 = 56
+7 x 9 = 63
+7 x 10 = 70
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+
+    for (int i = 1; i <= 10; i++) {
+        printf("%d x %d = %d\n", number, i, number * i);
+    }
+    return 0;
+}
+```
+:::
+
+### 11. Factorial
+**Question:** Read an integer `n` from `0` to `12` and print `n!`. Remember that `0!` is `1`. For any other input, print `Invalid input`.
+
+**Example Input:**
+```text
+5
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter n (0-12): 5! = 120
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    int result = 1;
+    printf("Enter n (0-12): ");
+    scanf("%d", &n);
+
+    if (n < 0 || n > 12) {
+        printf("Invalid input\n");
+        return 0;
+    }
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    printf("%d! = %d\n", n, result);
+    return 0;
+}
+```
+`result` starts at `1` (not `0`), because it is multiplied each time. The loop does not run for `n = 0`, so the result stays `1`. Above `12!`, the value no longer fits in an `int`.
+:::
+
+### 12. Even Numbers up to N
+**Question:** Read `N` and print all even numbers from `2` up to `N` on one line, separated by single spaces. Use a step of `2` in the `for` loop.
+
+**Example Input:**
+```text
+10
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter N: 2 4 6 8 10
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter N: ");
+    scanf("%d", &n);
+
+    for (int i = 2; i <= n; i += 2) {
+        if (i > 2) {
+            printf(" ");
+        }
+        printf("%d", i);
+    }
+    printf("\n");
+    return 0;
+}
+```
+The space is printed before every number except the first, so there is no extra space at the end of the line.
+:::
+
+### 13. Largest of a Chosen Number of Inputs (Optional)
+**Question:** Read how many numbers will be entered, then read that many integers and print the largest. Assume the count is at least `1`. Do not use an array. Keep the largest value seen so far in one variable.
+
+**Example Input:**
+```text
+4
+7
+-3
+12
+9
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+How many numbers? Enter number 1: Enter number 2: Enter number 3: Enter number 4: Largest: 12
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int count, number, largest;
+    printf("How many numbers? ");
+    scanf("%d", &count);
+
+    printf("Enter number 1: ");
+    scanf("%d", &largest);
+    for (int i = 2; i <= count; i++) {
+        printf("Enter number %d: ", i);
+        scanf("%d", &number);
+        if (number > largest) {
+            largest = number;
+        }
+    }
+    printf("Largest: %d\n", largest);
+    return 0;
+}
+```
+Starting `largest` with the first input (instead of `0`) also works for negative numbers.
+:::
+
+## Part 3 — The `do while` Loop
+
+A `do while` loop checks its condition **after** the body, so the body always runs at least once.
+
+### 14. A Loop That Runs Once
+**Question:** Predict the output. Compare this with Question 2.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 10;
+    do {
+        printf("%d\n", i);
+        i++;
+    } while (i < 5);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+10
+```
+The body runs once before the condition `11 < 5` is checked. The condition is false, so the loop ends.
+:::
+
+### 15. Validate a Menu Choice
+**Question:** Keep asking the user for a number from `1` to `3` until the input is valid, then print `Accepted`.
+
+**Example Input:**
+```text
+7
+0
+2
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a choice from 1 to 3: Enter a choice from 1 to 3: Enter a choice from 1 to 3: Accepted
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int choice;
+    do {
+        printf("Enter a choice from 1 to 3: ");
+        scanf("%d", &choice);
+    } while (choice < 1 || choice > 3);
+
+    printf("Accepted\n");
+    return 0;
+}
+```
+`do while` fits here because the program must ask at least once before it can check the answer.
+:::
+
+## Part 4 — `break`, `continue`, and `return`
+
+- `break` leaves the **loop** immediately.
+- `continue` skips the rest of the current repetition and goes to the next one.
+- `return` leaves the whole **function**. In `main`, that ends the program.
+
+### 16. `break` Leaves the Loop
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        if (i == 4) {
+            break;
+        }
+        printf("%d\n", i);
+    }
+    printf("after\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+2
+3
+after
+```
+When `i` is `4`, `break` ends the loop. The program continues with the statement after the loop.
+:::
+
+### 17. `continue` Skips One Repetition
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 6; i++) {
+        if (i % 2 == 0) {
+            continue;
+        }
+        printf("%d\n", i);
+    }
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+3
+5
+```
+For even values of `i`, `continue` jumps straight to the next repetition, so `printf` is skipped. The `i++` in the `for` header still runs.
+:::
+
+### 18. `break` and `continue` Together (Optional)
+**Question:** Predict the output, including the value of `i` after the loop.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 1; i <= 8; i++) {
+        if (i == 3) {
+            continue;
+        }
+        if (i == 5) {
+            break;
+        }
+        printf("%d\n", i);
+    }
+    printf("i = %d\n", i);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+2
+4
+i = 5
+```
+`3` is skipped by `continue`. At `5`, `break` ends the loop before `i++` runs, so `i` keeps the value `5`. The variable `i` is declared before the loop so it can be printed afterwards.
+:::
+
+### 19. `return` Inside a Loop
+**Question:** Predict the output. Does `done` print?
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 5; i++) {
+        printf("%d\n", i);
+        if (i == 3) {
+            return 0;
+        }
+    }
+    printf("done\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+2
+3
+```
+`return 0;` ends `main`, and therefore the whole program, so `done` never prints. A `break` in the same place would have printed `done`.
+:::
+
+### 20. Infinite Loop with an Exit
+**Question:** Use `while (1)` to read integers until the user enters a negative number. Add up the non-negative numbers and print the sum. Use `break` to leave the loop.
+
+**Example Input:**
+```text
+5
+3
+-1
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a number (negative to stop): Enter a number (negative to stop): Enter a number (negative to stop): Sum: 8
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    int sum = 0;
+
+    while (1) {
+        printf("Enter a number (negative to stop): ");
+        scanf("%d", &number);
+        if (number < 0) {
+            break;
+        }
+        sum += number;
+    }
+    printf("Sum: %d\n", sum);
+    return 0;
+}
+```
+The condition `1` is always true, so only `break` can end the loop. This avoids reading the first input outside the loop, as in Question 5.
+:::
+
+### 21. Skip and Stop (Optional)
+**Question:** Print the numbers from `1` to `20`, each on its own line. Skip multiples of `3` with `continue`, and stop the loop completely with `break` once the number is greater than `12`.
+
+**Expected Output:**
+```text
+1
+2
+4
+5
+7
+8
+10
+11
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 20; i++) {
+        if (i > 12) {
+            break;
+        }
+        if (i % 3 == 0) {
+            continue;
+        }
+        printf("%d\n", i);
+    }
+    return 0;
+}
+```
+`12` is a multiple of `3`, so it is skipped. At `13`, the `break` ends the loop.
+:::
+
+### 22. Prime Check
+**Question:** Read an integer `n` that is at least `2`. Print `Prime` if it has no divisor from `2` to `n - 1`, otherwise `Not prime`. Use a flag variable and stop the loop with `break` as soon as a divisor is found.
+
+**Example Input:**
+```text
+17
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer (2 or more): Prime
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    int is_prime = 1;
+    printf("Enter an integer (2 or more): ");
+    scanf("%d", &n);
+
+    for (int i = 2; i < n; i++) {
+        if (n % i == 0) {
+            is_prime = 0;
+            break;
+        }
+    }
+
+    if (is_prime) {
+        printf("Prime\n");
+    } else {
+        printf("Not prime\n");
+    }
+    return 0;
+}
+```
+The flag starts as "prime" and is set to `0` when a divisor is found. With input `18` the program prints `Not prime`, because `18 % 2 == 0` stops the loop at `i = 2`.
+:::
+
+### 23. Early Exit with `return`
+**Question:** Read up to `5` integers. If the user enters `0` at any point, print `Zero entered, exiting.` and end the program immediately with `return 0;`. If all five numbers are read without a `0`, print `All numbers read.`
+
+**Example Input:**
+```text
+4
+7
+0
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a number: Enter a number: Enter a number: Zero entered, exiting.
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Enter a number: ");
+        scanf("%d", &number);
+        if (number == 0) {
+            printf("Zero entered, exiting.\n");
+            return 0;
+        }
+    }
+    printf("All numbers read.\n");
+    return 0;
+}
+```
+With the input `1 2 3 4 5`, the program asks five times and then prints `All numbers read.`
+:::
+
+## Part 5 — Patterns and Number Problems
+
+### 24. Fibonacci Sequence
+**Question:** Read `N` from `1` to `45` and print the first `N` Fibonacci numbers on one line, separated by spaces, beginning with `0 1 1 2 3 ...`. Each number is the sum of the previous two. Use variables to remember the previous two numbers, not an array. For input outside `1` to `45`, print `Invalid input`.
+
+**Example Input:**
+```text
+8
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+How many terms (1-45)? 0 1 1 2 3 5 8 13
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    int a = 0, b = 1;
+    printf("How many terms (1-45)? ");
+    scanf("%d", &n);
+
+    if (n < 1 || n > 45) {
+        printf("Invalid input\n");
+        return 0;
+    }
+    for (int i = 0; i < n; i++) {
+        printf("%d", a);
+        if (i < n - 1) {
+            printf(" ");
+        }
+        int next = a + b;
+        a = b;
+        b = next;
+    }
+    printf("\n");
+    return 0;
+}
+```
+`a` holds the number being printed and `b` the one after it. Each repetition computes `next`, then shifts both variables one step forward. The 46th Fibonacci number no longer fits in an `int`.
+:::
+
+### 25. Star Triangle (Optional)
+**Question:** Use nested `for` loops to print this shape:
+
+**Expected Output:**
+```text
+*
+**
+***
+****
+*****
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    for (int row = 1; row <= 5; row++) {
+        for (int col = 1; col <= row; col++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+The outer loop counts rows. The inner loop prints as many stars as the current row number, and `printf("\n")` ends each row.
+:::
+
+### 26. Number Triangle
+**Question:** Print this shape using nested `for` loops. Each row counts from `1` up to the row number.
+
+**Expected Output:**
+```text
+1
+12
+123
+1234
+12345
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    for (int row = 1; row <= 5; row++) {
+        for (int col = 1; col <= row; col++) {
+            printf("%d", col);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+:::
+
+### 27. Star Rectangle
+**Question:** Read the number of rows and columns. Print a rectangle of stars with that size.
+
+**Example Input:**
+```text
+3 5
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter rows and columns: *****
+*****
+*****
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int rows, columns;
+    printf("Enter rows and columns: ");
+    scanf("%d %d", &rows, &columns);
+
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < columns; c++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+:::
+
+### 28. Sum of Digits
+**Question:** Read a positive integer and print the sum of its digits. Use `% 10` to get the last digit and `/ 10` to remove it.
+
+**Example Input:**
+```text
+1234
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a positive integer: Digit sum: 10
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Enter a positive integer: ");
+    scanf("%d", &n);
+
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    printf("Digit sum: %d\n", sum);
+    return 0;
+}
+```
+For `1234`, the loop adds `4`, `3`, `2`, and `1`.
+:::
+
+### 29. Greatest Common Divisor
+**Question:** Read two positive integers and print their greatest common divisor (GCD) using Euclid's algorithm: while `b` is not `0`, replace `(a, b)` with `(b, a % b)`. The answer is the final `a`.
+
+**Example Input:**
+```text
+48 18
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter two positive integers: GCD: 6
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Enter two positive integers: ");
+    scanf("%d %d", &a, &b);
+
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    printf("GCD: %d\n", a);
+    return 0;
+}
+```
+Trace for `48 18`: `(48, 18)`, then `(18, 12)`, then `(12, 6)`, then `(6, 0)`. The loop stops and `a` is `6`.
+:::
+
+### 30. Fizz Buzz from 1 to N
+**Question:** Read `N`. For every number from `1` to `N`, print `FizzBuzz` if it is divisible by both `3` and `5`, `Fizz` if divisible by `3`, `Buzz` if divisible by `5`, and otherwise the number. Print one item per line.
+
+**Example Input:**
+```text
+10
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter N: 1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter N: ");
+    scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        if (i % 3 == 0 && i % 5 == 0) {
+            printf("FizzBuzz\n");
+        } else if (i % 3 == 0) {
+            printf("Fizz\n");
+        } else if (i % 5 == 0) {
+            printf("Buzz\n");
+        } else {
+            printf("%d\n", i);
+        }
+    }
+    return 0;
+}
+```
+This combines the loop with the `if` ladder from the Conditional Statements notebook.
+:::
+
+### 31. Power of a Number (Optional)
+**Question:** Read an integer base and a non-negative integer exponent. Calculate `base` raised to `exponent` using a loop and multiplication only. Assume the result fits in an `int`.
+
+**Example Input:**
+```text
+2 10
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter base and exponent: 2^10 = 1024
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int base, exponent;
+    int result = 1;
+    printf("Enter base and exponent: ");
+    scanf("%d %d", &base, &exponent);
+
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    printf("%d^%d = %d\n", base, exponent, result);
+    return 0;
+}
+```
+For an exponent of `0` the loop never runs, and the result stays `1`, which is correct.
+:::
+
+## Part 6 — Menus That Repeat
+
+### 32. Calculator That Repeats
+**Question:** Extend the calculator from the Conditional Statements notebook (`number operator number`, with `+`, `-`, `*`, `/`). After each result, ask `Calculate again? (y/n): `. If the user enters `y` or `Y`, calculate again. Any other answer ends the program with `Goodbye`. Keep the division-by-zero and unknown-operator messages.
+
+**Example Input:**
+```text
+8 / 2
+y
+7 / 0
+n
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter: number operator number: Result: 4.00
+Calculate again? (y/n): Enter: number operator number: Cannot divide by zero
+Calculate again? (y/n): Goodbye
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    char again = 'y';
+    while (again == 'y' || again == 'Y') {
+        double a, b;
+        char op;
+        printf("Enter: number operator number: ");
+        scanf("%lf %c %lf", &a, &op, &b);
+
+        if (op == '+') {
+            printf("Result: %.2f\n", a + b);
+        } else if (op == '-') {
+            printf("Result: %.2f\n", a - b);
+        } else if (op == '*') {
+            printf("Result: %.2f\n", a * b);
+        } else if (op == '/') {
+            if (b == 0.0) {
+                printf("Cannot divide by zero\n");
+            } else {
+                printf("Result: %.2f\n", a / b);
+            }
+        } else {
+            printf("Unknown operator\n");
+        }
+
+        printf("Calculate again? (y/n): ");
+        scanf(" %c", &again);
+    }
+    printf("Goodbye\n");
+    return 0;
+}
+```
+Starting `again` as `'y'` lets the loop run the first time. The space in `" %c"` skips the newline left over from the previous input.
+:::
+
+### 33. Repeating Unit Converter
+**Question:** Repeat this menu until the user enters `0`. For choices `1` to `4`, read a value and print the result with two decimal places. For any other number, print `Invalid choice` and show the menu again. Print `Goodbye` when the user exits.
+
+- `1` converts centimetres to metres
+- `2` converts metres to centimetres
+- `3` converts Celsius to Fahrenheit
+- `4` converts Fahrenheit to Celsius
+- `0` exits
+
+**Example Input:**
+```text
+1
+250
+0
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+1: cm to m
+2: m to cm
+3: C to F
+4: F to C
+0: exit
+Choice: Enter value: Result: 2.50 m
+1: cm to m
+2: m to cm
+3: C to F
+4: F to C
+0: exit
+Choice: Goodbye
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int choice = -1;
+    while (choice != 0) {
+        double value;
+        printf("1: cm to m\n2: m to cm\n3: C to F\n4: F to C\n0: exit\nChoice: ");
+        scanf("%d", &choice);
+
+        if (choice == 0) {
+            printf("Goodbye\n");
+        } else if (choice >= 1 && choice <= 4) {
+            printf("Enter value: ");
+            scanf("%lf", &value);
+            if (choice == 1) {
+                printf("Result: %.2f m\n", value / 100.0);
+            } else if (choice == 2) {
+                printf("Result: %.2f cm\n", value * 100.0);
+            } else if (choice == 3) {
+                printf("Result: %.2f F\n", value * 9.0 / 5.0 + 32.0);
+            } else {
+                printf("Result: %.2f C\n", (value - 32.0) * 5.0 / 9.0);
+            }
+        } else {
+            printf("Invalid choice\n");
+        }
+    }
+    return 0;
+}
+```
+`choice` starts at `-1` (any value except `0`) so the loop runs at least once.
+:::
+
+## Part 7 — Games with Loops
+
+The games below use `rand()` from `<stdlib.h>` to let the computer choose randomly. Seed the generator **once**, at the start of `main`, with `srand((unsigned)time(NULL))` from `<time.h>`. Because the computer's choices are random, each example shows one possible run.
+
+### 34. Random-Number Warm-Up (Optional)
+**Question:** Seed the random-number generator once and choose a random integer from `0` to `2`. Print `Rock` for `0`, `Paper` for `1`, or `Scissors` for `2`.
+
+**Expected Output** (one possible run):
+```text
+Paper
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    srand((unsigned)time(NULL));
+    int choice = rand() % 3;
+
+    if (choice == 0) {
+        printf("Rock\n");
+    } else if (choice == 1) {
+        printf("Paper\n");
+    } else {
+        printf("Scissors\n");
+    }
+    return 0;
+}
+```
+`rand() % 3` gives `0`, `1`, or `2`. The output changes from run to run.
+:::
+
+### 35. Guess the Number
+**Question:** The computer picks a secret number from `1` to `20`. The player has at most `5` guesses. After each wrong guess, print `Too low` or `Too high`. If the player guesses correctly, print `Correct! You won.` and stop. If all `5` guesses are used, print `Game over. The number was X.`
+
+**Example Input** (the secret number is `12`):
+```text
+10
+15
+12
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Guess 1 of 5: Too low
+Guess 2 of 5: Too high
+Guess 3 of 5: Correct! You won.
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    srand((unsigned)time(NULL));
+    int secret = rand() % 20 + 1;
+    int won = 0;
+
+    for (int attempt = 1; attempt <= 5; attempt++) {
+        int guess;
+        printf("Guess %d of 5: ", attempt);
+        scanf("%d", &guess);
+
+        if (guess == secret) {
+            printf("Correct! You won.\n");
+            won = 1;
+            break;
+        } else if (guess < secret) {
+            printf("Too low\n");
+        } else {
+            printf("Too high\n");
+        }
+    }
+
+    if (!won) {
+        printf("Game over. The number was %d.\n", secret);
+    }
+    return 0;
+}
+```
+The `won` flag tells the code after the loop whether the loop ended by `break` or by running out of guesses. If the player misses all five guesses, the program prints `Game over. The number was 12.`
+:::
+
+### 36. Rock, Paper, Scissors: Play Again
+**Question:** The player enters `r`, `p`, or `s`. The computer chooses randomly (`0` rock, `1` paper, `2` scissors). Print both choices and the result (`Draw`, `You win`, or `Computer wins`). Reject an invalid choice with `Invalid choice`. After every round, ask `Play again? (y/n): `. Repeat while the answer is `y` or `Y`, then print `Thanks for playing`.
+
+**Example Input** (the computer happens to choose Scissors):
+```text
+r
+n
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Choose r (rock), p (paper), or s (scissors): You: Rock
+Computer: Scissors
+You win
+Play again? (y/n): Thanks for playing
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    char again = 'y';
+    srand((unsigned)time(NULL));
+
+    while (again == 'y' || again == 'Y') {
+        char player;
+        int computer = rand() % 3;  /* 0 rock, 1 paper, 2 scissors */
+        printf("Choose r (rock), p (paper), or s (scissors): ");
+        scanf(" %c", &player);
+
+        if (player != 'r' && player != 'p' && player != 's') {
+            printf("Invalid choice\n");
+        } else {
+            printf("You: ");
+            if (player == 'r') printf("Rock\n");
+            else if (player == 'p') printf("Paper\n");
+            else printf("Scissors\n");
+
+            printf("Computer: ");
+            if (computer == 0) printf("Rock\n");
+            else if (computer == 1) printf("Paper\n");
+            else printf("Scissors\n");
+
+            if ((player == 'r' && computer == 0) ||
+                (player == 'p' && computer == 1) ||
+                (player == 's' && computer == 2)) {
+                printf("Draw\n");
+            } else if ((player == 'r' && computer == 2) ||
+                       (player == 'p' && computer == 0) ||
+                       (player == 's' && computer == 1)) {
+                printf("You win\n");
+            } else {
+                printf("Computer wins\n");
+            }
+        }
+
+        printf("Play again? (y/n): ");
+        scanf(" %c", &again);
+    }
+    printf("Thanks for playing\n");
+    return 0;
+}
+```
+Seed with `srand` once, outside the loop. Seeding inside the loop would repeat the same "random" number when rounds happen within the same second.
+:::
+
+### 37. Rock, Paper, Scissors: First to 3 Wins, Game Over After 5 Losses
+**Question:** Extend the previous game into a match. Count the player's wins and losses. Draws and invalid choices count for neither side. After every round, print the score in the form `Wins: X | Losses: Y`. The match ends as soon as the player has `3` wins (print `You won the game!`) or `5` losses (print `Game over: you lost 5 rounds.`). Use a loop whose condition checks both counters.
+
+**Example Input** (the computer happens to choose Scissors, Scissors, Scissors, Scissors, Rock):
+```text
+r
+p
+s
+r
+p
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Choose r (rock), p (paper), or s (scissors): You: Rock
+Computer: Scissors
+You win this round
+Wins: 1 | Losses: 0
+Choose r (rock), p (paper), or s (scissors): You: Paper
+Computer: Scissors
+Computer wins this round
+Wins: 1 | Losses: 1
+Choose r (rock), p (paper), or s (scissors): You: Scissors
+Computer: Scissors
+Draw
+Wins: 1 | Losses: 1
+Choose r (rock), p (paper), or s (scissors): You: Rock
+Computer: Scissors
+You win this round
+Wins: 2 | Losses: 1
+Choose r (rock), p (paper), or s (scissors): You: Paper
+Computer: Rock
+You win this round
+Wins: 3 | Losses: 1
+You won the game!
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    int wins = 0, losses = 0;
+    srand((unsigned)time(NULL));
+
+    while (wins < 3 && losses < 5) {
+        char player;
+        int computer = rand() % 3;  /* 0 rock, 1 paper, 2 scissors */
+
+        printf("Choose r (rock), p (paper), or s (scissors): ");
+        scanf(" %c", &player);
+
+        if (player != 'r' && player != 'p' && player != 's') {
+            printf("Invalid choice\n");
+            continue;
+        }
+
+        printf("You: ");
+        if (player == 'r') printf("Rock\n");
+        else if (player == 'p') printf("Paper\n");
+        else printf("Scissors\n");
+
+        printf("Computer: ");
+        if (computer == 0) printf("Rock\n");
+        else if (computer == 1) printf("Paper\n");
+        else printf("Scissors\n");
+
+        if ((player == 'r' && computer == 0) ||
+            (player == 'p' && computer == 1) ||
+            (player == 's' && computer == 2)) {
+            printf("Draw\n");
+        } else if ((player == 'r' && computer == 2) ||
+                   (player == 'p' && computer == 0) ||
+                   (player == 's' && computer == 1)) {
+            wins++;
+            printf("You win this round\n");
+        } else {
+            losses++;
+            printf("Computer wins this round\n");
+        }
+        printf("Wins: %d | Losses: %d\n", wins, losses);
+    }
+
+    if (wins == 3) {
+        printf("You won the game!\n");
+    } else {
+        printf("Game over: you lost 5 rounds.\n");
+    }
+    return 0;
+}
+```
+The condition `wins < 3 && losses < 5` keeps the match running only while both limits are still open. After the loop, exactly one of the two limits has been reached, so a single `if` decides the final message. For an invalid choice, `continue` skips the rest of the round and goes back to the loop condition without changing the score.
+:::

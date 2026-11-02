@@ -1,0 +1,972 @@
+---
+title: "C Conditional Statements"
+---
+
+## Description
+
+This is the second notebook. It covers decision-making in C, starting with comparison and logical results, then moving through `if`, `else`, and `else if`, nested decisions, small menu and game projects, and finally the `switch` statement.
+
+## How to use the pack
+
+Work through the exercises in order, since later ones build on earlier ones. Attempt the Questions before revealing the answer. If a solution is unclear, ask LLMs for a step-by-step explanation.
+
+## Part 1 — Comparison and Logical Results
+
+In C, a true comparison or logical expression has the value `1`, and a false one has the value `0`.
+
+### 1. Comparison Results
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 5, b = 8;
+    printf("%d\n", a < b);
+    printf("%d\n", a == b);
+    printf("%d\n", a + b > 10);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+0
+1
+```
+`5 < 8` is true, `5 == 8` is false, and `a + b` is `13`, which is greater than `10`.
+:::
+
+### 2. AND, OR, and NOT
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 6;
+    printf("%d\n", (x > 3) && (x < 10));
+    printf("%d\n", (x < 3) || (x == 6));
+    printf("%d\n", !(x == 6));
+    printf("%d\n", (x >= 6) && (x != 7));
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+1
+1
+0
+1
+```
+`&&` needs both sides true, `||` needs at least one side true, and `!` reverses a truth value.
+:::
+
+### 3. Mixing `&&` and `||` (Optional)
+**Question:** Predict the output. `&&` is evaluated before `||` unless parentheses change the order.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 2, b = 7;
+
+    printf("%d\n", a > 5 || b > 5 && a > 5);
+    printf("%d\n", (a > 5 || b > 5) && a > 1);
+    printf("%d\n", a < b && b < 10 || a == 0);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+0
+1
+1
+```
+Line 1: `b > 5 && a > 5` is `1 && 0`, which is `0`, and `a > 5` is also `0`, so the result is `0 || 0`. Line 2: the parentheses make `(0 || 1)` happen first, giving `1 && 1`. Line 3: `a < b && b < 10` is true, so the whole expression is `1`.
+:::
+
+## Part 2 — `if` and `else`
+
+### 4. Positive, Negative, or Zero
+**Question:** Read an integer. Print `Positive`, `Negative`, or `Zero`.
+
+**Example Input:**
+```text
+-4
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer: Negative
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+
+    if (number > 0) {
+        printf("Positive\n");
+    } else if (number < 0) {
+        printf("Negative\n");
+    } else {
+        printf("Zero\n");
+    }
+    return 0;
+}
+```
+With input `7` the program prints `Positive`, and with `0` it prints `Zero`.
+:::
+
+### 5. Even or Odd
+**Question:** Read an integer and print whether it is `Even` or `Odd`. Use the remainder operator `%`.
+
+**Example Input:**
+```text
+7
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer: Odd
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+
+    if (number % 2 == 0) {
+        printf("Even\n");
+    } else {
+        printf("Odd\n");
+    }
+    return 0;
+}
+```
+Test for even with `== 0`. For negative numbers, `-3 % 2` is `-1` in C, so a test like `number % 2 == 1` would wrongly call `-3` even.
+:::
+
+### 6. Compare Two Numbers
+**Question:** Read two integers. Print which one is larger, using the format shown, or print `Equal` if they have the same value.
+
+**Example Input:**
+```text
+12 9
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter two integers: 12 is larger
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Enter two integers: ");
+    scanf("%d %d", &a, &b);
+
+    if (a > b) {
+        printf("%d is larger\n", a);
+    } else if (b > a) {
+        printf("%d is larger\n", b);
+    } else {
+        printf("Equal\n");
+    }
+    return 0;
+}
+```
+With input `5 5` the program prints `Equal`.
+:::
+
+### 7. Inside a Range
+**Question:** Read an integer. Print `Inside` if it is between **10 and 20 inclusive**, otherwise print `Outside`.
+
+**Example Input:**
+```text
+15
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer: Inside
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+
+    if (number >= 10 && number <= 20) {
+        printf("Inside\n");
+    } else {
+        printf("Outside\n");
+    }
+    return 0;
+}
+```
+Both conditions must be true, so they are joined with `&&`. Writing `10 <= number <= 20` does not work in C.
+:::
+
+### 8. Admission Rule (Optional)
+**Question:** Read an age and an entrance-test score. Print `Eligible` only if the age is at least `18` **and** the score is at least `60`. Otherwise print `Not eligible`.
+
+**Example Input:**
+```text
+19 72
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter age and test score: Eligible
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int age, score;
+    printf("Enter age and test score: ");
+    scanf("%d %d", &age, &score);
+
+    if (age >= 18 && score >= 60) {
+        printf("Eligible\n");
+    } else {
+        printf("Not eligible\n");
+    }
+    return 0;
+}
+```
+:::
+
+### 9. Score to Grade
+**Question:** Read a score from `0` to `100` and print the grade: `A` for 90–100, `B` for 80–89, `C` for 70–79, `D` for 60–69, and `F` for 0–59. For a score below `0` or above `100`, print `Invalid score`. Use an `if` / `else if` ladder.
+
+**Example Input:**
+```text
+85
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a score (0-100): B
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int score;
+    printf("Enter a score (0-100): ");
+    scanf("%d", &score);
+
+    if (score < 0 || score > 100) {
+        printf("Invalid score\n");
+    } else if (score >= 90) {
+        printf("A\n");
+    } else if (score >= 80) {
+        printf("B\n");
+    } else if (score >= 70) {
+        printf("C\n");
+    } else if (score >= 60) {
+        printf("D\n");
+    } else {
+        printf("F\n");
+    }
+    return 0;
+}
+```
+The ladder is checked from top to bottom and stops at the first true condition. That is why `score >= 80` does not also need `score < 90`.
+:::
+
+## Part 3 — Reading `if` / `else` Code
+
+### 10. Two `if` Statements in a Row
+**Question:** Predict the output. Pay attention to which `if` the `else` belongs to.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int n = 4;
+    if (n > 0)
+        printf("A");
+    if (n % 2 == 0)
+        printf("B");
+    else
+        printf("C");
+    printf("D\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+ABD
+```
+The first `if` is separate and prints `A`. The `else` belongs to the second `if`; since `4` is even, `B` prints and `C` is skipped. `D` always prints.
+:::
+
+### 11. Which Branch Runs?
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int score = 76;
+    if (score >= 90)
+        printf("Excellent\n");
+    else if (score >= 70)
+        printf("Good\n");
+    else
+        printf("Keep practising\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+Good
+```
+`76` is not at least `90`, but it is at least `70`, so the second branch runs and the rest are skipped.
+:::
+
+### 12. Missing Braces (Optional)
+**Question:** Predict the output. Ignore the indentation and read the code the way the compiler does.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 3;
+    if (x > 5)
+        printf("A\n");
+        printf("B\n");
+    printf("C\n");
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+B
+C
+```
+Without braces, an `if` controls only the next statement. `printf("B\n");` is not part of the `if`, so it always runs. Using braces `{ }` on every `if` avoids this trap.
+:::
+
+## Part 4 — Combined and Nested Decisions
+
+### 13. Sign First, Then Parity
+**Question:** Read an integer. First print whether it is `Positive`, `Negative`, or `Zero`. If it is positive, also print on a second line whether it is `Even` or `Odd`. Use a nested `if` inside the positive branch.
+
+**Example Input:**
+```text
+8
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer: Positive
+Even
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int number;
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+
+    if (number > 0) {
+        printf("Positive\n");
+        if (number % 2 == 0) {
+            printf("Even\n");
+        } else {
+            printf("Odd\n");
+        }
+    } else if (number < 0) {
+        printf("Negative\n");
+    } else {
+        printf("Zero\n");
+    }
+    return 0;
+}
+```
+:::
+
+### 14. Largest of Three Numbers
+**Question:** Read three integers and print the largest. Use nested `if` / `else` statements. Do not use arrays or loops.
+
+**Example Input:**
+```text
+4 17 9
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter three integers: Largest: 17
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int a, b, c, largest;
+    printf("Enter three integers: ");
+    scanf("%d %d %d", &a, &b, &c);
+
+    if (a >= b) {
+        if (a >= c) {
+            largest = a;
+        } else {
+            largest = c;
+        }
+    } else {
+        if (b >= c) {
+            largest = b;
+        } else {
+            largest = c;
+        }
+    }
+
+    printf("Largest: %d\n", largest);
+    return 0;
+}
+```
+The first comparison removes one candidate, and the nested `if` compares the winner with the third number. Using `>=` makes ties print the tied value.
+:::
+
+### 15. Leap Year
+**Question:** Read a year. Print `Leap year` if it is divisible by `400`, or if it is divisible by `4` but not by `100`. Otherwise print `Not a leap year`.
+
+**Example Input:**
+```text
+2024
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a year: Leap year
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int year;
+    printf("Enter a year: ");
+    scanf("%d", &year);
+
+    if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+        printf("Leap year\n");
+    } else {
+        printf("Not a leap year\n");
+    }
+    return 0;
+}
+```
+`2000` is a leap year (divisible by `400`), but `1900` is not (divisible by `100` and not by `400`).
+:::
+
+### 16. Triangle Check (Optional)
+**Question:** Read three positive integers as side lengths. A triangle is possible only if the sum of any two sides is greater than the third side. Print `Valid triangle` or `Not a triangle`.
+
+**Example Input:**
+```text
+3 4 8
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter three side lengths: Not a triangle
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    printf("Enter three side lengths: ");
+    scanf("%d %d %d", &a, &b, &c);
+
+    if (a + b > c && a + c > b && b + c > a) {
+        printf("Valid triangle\n");
+    } else {
+        printf("Not a triangle\n");
+    }
+    return 0;
+}
+```
+`3 + 4` is `7`, which is not greater than `8`, so the first condition fails. With input `3 4 5` the program prints `Valid triangle`.
+:::
+
+### 17. Ticket Price (Optional)
+**Question:** Read an age and print the ticket price: under `6` is `Free`, `6` to `17` costs `5 EUR`, `18` to `64` costs `10 EUR`, and `65` or older costs `6 EUR`. A negative age prints `Invalid age`. Use the output format shown.
+
+**Example Input:**
+```text
+12
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter age: Price: 5 EUR
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int age;
+    printf("Enter age: ");
+    scanf("%d", &age);
+
+    if (age < 0) {
+        printf("Invalid age\n");
+    } else if (age < 6) {
+        printf("Price: Free\n");
+    } else if (age < 18) {
+        printf("Price: 5 EUR\n");
+    } else if (age < 65) {
+        printf("Price: 10 EUR\n");
+    } else {
+        printf("Price: 6 EUR\n");
+    }
+    return 0;
+}
+```
+Because the ladder stops at the first true condition, each branch only needs the upper limit of its age group.
+:::
+
+## Part 5 — Small Decision-Making Projects
+
+### 18. Basic Calculator
+**Question:** Read two numbers and an operator character (`+`, `-`, `*`, or `/`) in the form `number operator number`. Print the result with two decimal places. If the operator is `/` and the second number is zero, print `Cannot divide by zero`. For any other operator, print `Unknown operator`.
+
+**Example Input:**
+```text
+9 * 2.5
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter: number operator number: Result: 22.50
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    double a, b;
+    char op;
+    printf("Enter: number operator number: ");
+    scanf("%lf %c %lf", &a, &op, &b);
+
+    if (op == '+') {
+        printf("Result: %.2f\n", a + b);
+    } else if (op == '-') {
+        printf("Result: %.2f\n", a - b);
+    } else if (op == '*') {
+        printf("Result: %.2f\n", a * b);
+    } else if (op == '/') {
+        if (b == 0.0) {
+            printf("Cannot divide by zero\n");
+        } else {
+            printf("Result: %.2f\n", a / b);
+        }
+    } else {
+        printf("Unknown operator\n");
+    }
+    return 0;
+}
+```
+Check for division by zero before dividing. With input `7 / 0` the program prints `Cannot divide by zero`.
+:::
+
+### 19. Length Converter Menu
+**Question:** Show the menu below, then read the choice and a value, and print the converted value with two decimal places. For any other choice, print `Invalid choice` and stop.
+
+- `1` converts centimetres to metres
+- `2` converts metres to centimetres
+- `3` converts kilometres to metres
+
+**Example Input:**
+```text
+1
+250
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+1: cm to m
+2: m to cm
+3: km to m
+Choice: Enter value: Result: 2.50 m
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int choice;
+    double value;
+
+    printf("1: cm to m\n2: m to cm\n3: km to m\nChoice: ");
+    scanf("%d", &choice);
+
+    if (choice < 1 || choice > 3) {
+        printf("Invalid choice\n");
+        return 0;
+    }
+
+    printf("Enter value: ");
+    scanf("%lf", &value);
+
+    if (choice == 1) {
+        printf("Result: %.2f m\n", value / 100.0);
+    } else if (choice == 2) {
+        printf("Result: %.2f cm\n", value * 100.0);
+    } else {
+        printf("Result: %.2f m\n", value * 1000.0);
+    }
+    return 0;
+}
+```
+Rejecting an invalid choice first with `return 0;` means the rest of the program only handles valid choices.
+:::
+
+### 20. Temperature Converter Menu (Optional)
+**Question:** Show the menu below, then read the choice and a temperature and print the result with two decimal places. Use `F = C * 9 / 5 + 32` and `C = (F - 32) * 5 / 9`. For any other choice, print `Invalid choice`.
+
+- `1` converts Celsius to Fahrenheit
+- `2` converts Fahrenheit to Celsius
+
+**Example Input:**
+```text
+1
+100
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+1: Celsius to Fahrenheit
+2: Fahrenheit to Celsius
+Choice: Enter temperature: Result: 212.00 F
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int choice;
+    double temperature;
+
+    printf("1: Celsius to Fahrenheit\n2: Fahrenheit to Celsius\nChoice: ");
+    scanf("%d", &choice);
+
+    if (choice != 1 && choice != 2) {
+        printf("Invalid choice\n");
+        return 0;
+    }
+
+    printf("Enter temperature: ");
+    scanf("%lf", &temperature);
+
+    if (choice == 1) {
+        printf("Result: %.2f F\n", temperature * 9.0 / 5.0 + 32.0);
+    } else {
+        printf("Result: %.2f C\n", (temperature - 32.0) * 5.0 / 9.0);
+    }
+    return 0;
+}
+```
+Use `9.0 / 5.0` and not `9 / 5`: integer division would turn `9 / 5` into `1`.
+:::
+
+### 21. Two-Player Rock, Paper, Scissors
+**Question:** Read one lowercase character per player: `r` for rock, `p` for paper, `s` for scissors. Print `Player 1 wins`, `Player 2 wins`, or `Draw`. If either character is invalid, print `Invalid choice`. Use conditions and logical operators.
+
+**Example Input:**
+```text
+r
+s
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Player 1 (r/p/s): Player 2 (r/p/s): Player 1 wins
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    char p1, p2;
+    printf("Player 1 (r/p/s): ");
+    scanf(" %c", &p1);
+    printf("Player 2 (r/p/s): ");
+    scanf(" %c", &p2);
+
+    if ((p1 != 'r' && p1 != 'p' && p1 != 's') ||
+        (p2 != 'r' && p2 != 'p' && p2 != 's')) {
+        printf("Invalid choice\n");
+    } else if (p1 == p2) {
+        printf("Draw\n");
+    } else if ((p1 == 'r' && p2 == 's') ||
+               (p1 == 'p' && p2 == 'r') ||
+               (p1 == 's' && p2 == 'p')) {
+        printf("Player 1 wins\n");
+    } else {
+        printf("Player 2 wins\n");
+    }
+    return 0;
+}
+```
+Handle invalid input first, then draws, then list the three ways Player 1 can win. Everything else must be a Player 2 win.
+:::
+
+## Part 6 — The `switch` Statement
+
+A `switch` compares one value against several `case` labels. Each case normally ends with `break`, and `default` handles every other value.
+
+### 22. Day of the Week
+**Question:** Read a number from `1` to `7` and print the day name, with `1` as `Monday`. For any other number, print `Invalid day`. Use `switch`.
+
+**Example Input:**
+```text
+3
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a day number (1-7): Wednesday
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int day;
+    printf("Enter a day number (1-7): ");
+    scanf("%d", &day);
+
+    switch (day) {
+        case 1: printf("Monday\n"); break;
+        case 2: printf("Tuesday\n"); break;
+        case 3: printf("Wednesday\n"); break;
+        case 4: printf("Thursday\n"); break;
+        case 5: printf("Friday\n"); break;
+        case 6: printf("Saturday\n"); break;
+        case 7: printf("Sunday\n"); break;
+        default: printf("Invalid day\n");
+    }
+    return 0;
+}
+```
+:::
+
+### 23. Missing `break`
+**Question:** Predict the output. What happens when a `case` has no `break`?
+
+**The Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int n = 2;
+    switch (n) {
+        case 1:
+            printf("one\n");
+        case 2:
+            printf("two\n");
+        case 3:
+            printf("three\n");
+            break;
+        case 4:
+            printf("four\n");
+    }
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+two
+three
+```
+The program jumps to `case 2` and keeps running every following statement until it reaches a `break`. This is called fall-through. It stops after `three` because of the `break` there.
+:::
+
+### 24. Vowel or Consonant
+**Question:** Read a lowercase letter and print `Vowel` for `a`, `e`, `i`, `o`, `u`, otherwise `Consonant`. Use `switch` with several `case` labels sharing one block of code.
+
+**Example Input:**
+```text
+e
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter a lowercase letter: Vowel
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    char letter;
+    printf("Enter a lowercase letter: ");
+    scanf(" %c", &letter);
+
+    switch (letter) {
+        case 'a':
+        case 'e':
+        case 'i':
+        case 'o':
+        case 'u':
+            printf("Vowel\n");
+            break;
+        default:
+            printf("Consonant\n");
+    }
+    return 0;
+}
+```
+Fall-through is useful here: the empty cases `a`, `e`, `i`, and `o` fall through to the shared `printf`.
+:::
+
+### 25. Calculator with `switch` (Optional)
+**Question:** Rewrite the calculator from Question 18 using `switch` on the operator character.
+
+**Example Input:**
+```text
+8 / 2
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter: number operator number: Result: 4.00
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    double a, b;
+    char op;
+    printf("Enter: number operator number: ");
+    scanf("%lf %c %lf", &a, &op, &b);
+
+    switch (op) {
+        case '+':
+            printf("Result: %.2f\n", a + b);
+            break;
+        case '-':
+            printf("Result: %.2f\n", a - b);
+            break;
+        case '*':
+            printf("Result: %.2f\n", a * b);
+            break;
+        case '/':
+            if (b == 0.0) {
+                printf("Cannot divide by zero\n");
+            } else {
+                printf("Result: %.2f\n", a / b);
+            }
+            break;
+        default:
+            printf("Unknown operator\n");
+    }
+    return 0;
+}
+```
+`switch` works with integers and characters, not with ranges such as `score >= 90`. Ranges still need `if` / `else if`.
+:::
+
+## Part 7 — Mixed Practice
+
+### 26. Final Challenge — Fizz Buzz Check
+**Question:** Read an integer. If it is divisible by both `3` and `5`, print `FizzBuzz`. If it is divisible only by `3`, print `Fizz`. If it is divisible only by `5`, print `Buzz`. Otherwise, print the number itself.
+
+**Example Input:**
+```text
+15
+```
+
+**Expected Program Output** (not counting the characters typed by the user):
+```text
+Enter an integer: FizzBuzz
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter an integer: ");
+    scanf("%d", &n);
+
+    if (n % 3 == 0 && n % 5 == 0) {
+        printf("FizzBuzz\n");
+    } else if (n % 3 == 0) {
+        printf("Fizz\n");
+    } else if (n % 5 == 0) {
+        printf("Buzz\n");
+    } else {
+        printf("%d\n", n);
+    }
+    return 0;
+}
+```
+The combined test must come first. Otherwise `15` would match `n % 3 == 0` and print only `Fizz`. With input `9` the program prints `Fizz`, with `10` it prints `Buzz`, and with `7` it prints `7`.
+:::
