@@ -100,14 +100,10 @@ Line 1: `b > 5 && a > 5` is `1 && 0`, which is `0`, and `a > 5` is also `0`, so 
 ### 4. Positive, Negative, or Zero
 **Question:** Read an integer. Print `Positive`, `Negative`, or `Zero`.
 
-**Example Input:**
+**Expected Program Output** (Input: -4)**:**
 ```text
--4
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer: Negative
+Enter an integer: -4
+Negative
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -135,14 +131,10 @@ With input `7` the program prints `Positive`, and with `0` it prints `Zero`.
 ### 5. Even or Odd
 **Question:** Read an integer and print whether it is `Even` or `Odd`. Use the remainder operator `%`.
 
-**Example Input:**
+**Expected Program Output** (Input: 7)**:**
 ```text
-7
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer: Odd
+Enter an integer: 7
+Odd
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -168,14 +160,11 @@ Test for even with `== 0`. For negative numbers, `-3 % 2` is `-1` in C, so a tes
 ### 6. Compare Two Numbers
 **Question:** Read two integers. Print which one is larger, using the format shown, or print `Equal` if they have the same value.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 12 9
 ```text
-12 9
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter two integers: 12 is larger
+Enter two integers: 12 9
+12 is larger
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -203,14 +192,10 @@ With input `5 5` the program prints `Equal`.
 ### 7. Inside a Range
 **Question:** Read an integer. Print `Inside` if it is between **10 and 20 inclusive**, otherwise print `Outside`.
 
-**Example Input:**
+**Expected Program Output** (Input: 15)**:**
 ```text
-15
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer: Inside
+Enter an integer: 15
+Inside
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -236,14 +221,11 @@ Both conditions must be true, so they are joined with `&&`. Writing `10 <= numbe
 ### 8. Admission Rule (Optional)
 **Question:** Read an age and an entrance-test score. Print `Eligible` only if the age is at least `18` **and** the score is at least `60`. Otherwise print `Not eligible`.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 19 72
 ```text
-19 72
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter age and test score: Eligible
+Enter age and test score: 19 72
+Eligible
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -268,14 +250,10 @@ int main() {
 ### 9. Score to Grade
 **Question:** Read a score from `0` to `100` and print the grade: `A` for 90–100, `B` for 80–89, `C` for 70–79, `D` for 60–69, and `F` for 0–59. For a score below `0` or above `100`, print `Invalid score`. Use an `if` / `else if` ladder.
 
-**Example Input:**
+**Expected Program Output** (Input: 85)**:**
 ```text
-85
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a score (0-100): B
+Enter a score (0-100): 85
+B
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -394,14 +372,10 @@ Without braces, an `if` controls only the next statement. `printf("B\n");` is no
 ### 13. Sign First, Then Parity
 **Question:** Read an integer. First print whether it is `Positive`, `Negative`, or `Zero`. If it is positive, also print on a second line whether it is `Even` or `Odd`. Use a nested `if` inside the positive branch.
 
-**Example Input:**
+**Expected Program Output** (Input: 8)**:**
 ```text
-8
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer: Positive
+Enter an integer: 8
+Positive
 Even
 ```
 
@@ -434,14 +408,11 @@ int main() {
 ### 14. Largest of Three Numbers
 **Question:** Read three integers and print the largest. Use nested `if` / `else` statements. Do not use arrays or loops.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4 17 9
 ```text
-4 17 9
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter three integers: Largest: 17
+Enter three integers: 4 17 9
+Largest: 17
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -477,14 +448,10 @@ The first comparison removes one candidate, and the nested `if` compares the win
 ### 15. Leap Year
 **Question:** Read a year. Print `Leap year` if it is divisible by `400`, or if it is divisible by `4` but not by `100`. Otherwise print `Not a leap year`.
 
-**Example Input:**
+**Expected Program Output** (Input: 2024)**:**
 ```text
-2024
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a year: Leap year
+Enter a year: 2024
+Leap year
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -510,14 +477,11 @@ int main() {
 ### 16. Triangle Check (Optional)
 **Question:** Read three positive integers as side lengths. A triangle is possible only if the sum of any two sides is greater than the third side. Print `Valid triangle` or `Not a triangle`.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 3 4 8
 ```text
-3 4 8
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter three side lengths: Not a triangle
+Enter three side lengths: 3 4 8
+Not a triangle
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -543,14 +507,10 @@ int main() {
 ### 17. Ticket Price (Optional)
 **Question:** Read an age and print the ticket price: under `6` is `Free`, `6` to `17` costs `5 EUR`, `18` to `64` costs `10 EUR`, and `65` or older costs `6 EUR`. A negative age prints `Invalid age`. Use the output format shown.
 
-**Example Input:**
+**Expected Program Output** (Input: 12)**:**
 ```text
-12
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter age: Price: 5 EUR
+Enter age: 12
+Price: 5 EUR
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -584,14 +544,11 @@ Because the ladder stops at the first true condition, each branch only needs the
 ### 18. Basic Calculator
 **Question:** Read two numbers and an operator character (`+`, `-`, `*`, or `/`) in the form `number operator number`. Print the result with two decimal places. If the operator is `/` and the second number is zero, print `Cannot divide by zero`. For any other operator, print `Unknown operator`.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 9 * 2.5
 ```text
-9 * 2.5
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter: number operator number: Result: 22.50
+Enter: number operator number: 9 * 2.5
+Result: 22.50
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -632,18 +589,15 @@ Check for division by zero before dividing. With input `7 / 0` the program print
 - `2` converts metres to centimetres
 - `3` converts kilometres to metres
 
-**Example Input:**
-```text
-1
-250
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
+**Expected Program Output:**<br>
+Input: 1, 250
 ```text
 1: cm to m
 2: m to cm
 3: km to m
-Choice: Enter value: Result: 2.50 m
+Choice: 1
+Enter value: 250
+Result: 2.50 m
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -684,17 +638,14 @@ Rejecting an invalid choice first with `return 0;` means the rest of the program
 - `1` converts Celsius to Fahrenheit
 - `2` converts Fahrenheit to Celsius
 
-**Example Input:**
-```text
-1
-100
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
+**Expected Program Output:**<br>
+Input: 1, 100
 ```text
 1: Celsius to Fahrenheit
 2: Fahrenheit to Celsius
-Choice: Enter temperature: Result: 212.00 F
+Choice: 1
+Enter temperature: 100
+Result: 212.00 F
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -730,15 +681,12 @@ Use `9.0 / 5.0` and not `9 / 5`: integer division would turn `9 / 5` into `1`.
 ### 21. Two-Player Rock, Paper, Scissors
 **Question:** Read one lowercase character per player: `r` for rock, `p` for paper, `s` for scissors. Print `Player 1 wins`, `Player 2 wins`, or `Draw`. If either character is invalid, print `Invalid choice`. Use conditions and logical operators.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: r, s
 ```text
-r
-s
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Player 1 (r/p/s): Player 2 (r/p/s): Player 1 wins
+Player 1 (r/p/s): r
+Player 2 (r/p/s): s
+Player 1 wins
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -777,14 +725,10 @@ A `switch` compares one value against several `case` labels. Each case normally 
 ### 22. Day of the Week
 **Question:** Read a number from `1` to `7` and print the day name, with `1` as `Monday`. For any other number, print `Invalid day`. Use `switch`.
 
-**Example Input:**
+**Expected Program Output** (Input: 3)**:**
 ```text
-3
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a day number (1-7): Wednesday
+Enter a day number (1-7): 3
+Wednesday
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -847,14 +791,10 @@ The program jumps to `case 2` and keeps running every following statement until 
 ### 24. Vowel or Consonant
 **Question:** Read a lowercase letter and print `Vowel` for `a`, `e`, `i`, `o`, `u`, otherwise `Consonant`. Use `switch` with several `case` labels sharing one block of code.
 
-**Example Input:**
+**Expected Program Output** (Input: e)**:**
 ```text
-e
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a lowercase letter: Vowel
+Enter a lowercase letter: e
+Vowel
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -886,14 +826,11 @@ Fall-through is useful here: the empty cases `a`, `e`, `i`, and `o` fall through
 ### 25. Calculator with `switch` (Optional)
 **Question:** Rewrite the calculator from Question 18 using `switch` on the operator character.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 8 / 2
 ```text
-8 / 2
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter: number operator number: Result: 4.00
+Enter (number operator number): 8 / 2
+Result: 4.00
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -903,7 +840,7 @@ Enter: number operator number: Result: 4.00
 int main() {
     double a, b;
     char op;
-    printf("Enter: number operator number: ");
+    printf("Enter (number operator number): ");
     scanf("%lf %c %lf", &a, &op, &b);
 
     switch (op) {
@@ -937,14 +874,10 @@ int main() {
 ### 26. Final Challenge — Fizz Buzz Check
 **Question:** Read an integer. If it is divisible by both `3` and `5`, print `FizzBuzz`. If it is divisible only by `3`, print `Fizz`. If it is divisible only by `5`, print `Buzz`. Otherwise, print the number itself.
 
-**Example Input:**
+**Expected Program Output** (Input: 15)**:**
 ```text
-15
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer: FizzBuzz
+Enter an integer: 15
+FizzBuzz
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}

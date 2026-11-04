@@ -777,14 +777,10 @@ In the last expression, `a == 5 && b == 3` is false (`0`), but `c == 0` is true 
 ### 30. Read One Integer
 **Question:** Write a program that asks the user for an integer, reads it with `scanf`, then prints `You entered: ` followed by the number.
 
-**Example Input:**
+**Expected Program Output** (Input: 23)**:**
 ```text
-23
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer: You entered: 23
+Enter an integer: 23
+You entered: 23
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -799,20 +795,15 @@ int main() {
     return 0;
 }
 ```
-With input `23`, the program's printed text is `Enter an integer: You entered: 23` (the typed input itself is not produced by `printf`).
 :::
 
 ### 31. Read Two Integers
 **Question:** Read two integers into `a` and `b`. Print their sum and the result of `a - b`.
 
-**Example Input:**
+**Expected Program Output** (Input: 10 4)**:**
 ```text
-10 4
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter two integers: Sum: 14
+Enter two integers: 10 4
+Sum: 14
 Difference: 6
 ```
 
@@ -829,9 +820,10 @@ int main() {
     return 0;
 }
 ```
-With input `10 4`, the program prints:
+With input `10 4`, the program displays:
 ```text
-Enter two integers: Sum: 14
+Enter two integers: 10 4
+Sum: 14
 Difference: 6
 ```
 :::
@@ -839,14 +831,10 @@ Difference: 6
 ### 32. Read a `float` and a `double`
 **Question:** Use `scanf` to read a `float` temperature and a `double` distance. Print both values using the default `%f` format. Pay attention to the format strings used by `scanf` and `printf`.
 
-**Example Input:**
+**Expected Program Output** (Input: 21.75 3.14159)**:**
 ```text
-21.75 3.14159
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter temperature and distance: Temperature: 21.750000
+Enter temperature and distance: 21.75 3.14159
+Temperature: 21.750000
 Distance: 3.141590
 ```
 
@@ -867,7 +855,8 @@ int main() {
 ```
 With input `21.75 3.14159`, the program prints:
 ```text
-Enter temperature and distance: Temperature: 21.750000
+Enter temperature and distance: 21.75 3.14159
+Temperature: 21.750000
 Distance: 3.141590
 ```
 :::
@@ -875,14 +864,10 @@ Distance: 3.141590
 ### 33. Read a Character and an Integer
 **Question:** Read a character and then an integer. Use a leading space in the `scanf` format before `%c` so it skips leftover whitespace. Print the character, its numeric code, and the integer. Assume an ASCII-compatible system for the code shown.
 
-**Example Input:**
+**Expected Program Output** (Input: A 12)**:**
 ```text
-A 12
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a character and an integer: Letter: A
+Enter a character and an integer: A 12
+Letter: A
 Code: 65
 Number: 12
 ```
@@ -905,7 +890,8 @@ int main() {
 ```
 With input `A 12` on an ASCII-compatible system, the program prints:
 ```text
-Enter a character and an integer: Letter: A
+Enter a character and an integer: A 12
+Letter: A
 Code: 65
 Number: 12
 ```
@@ -915,14 +901,10 @@ The space before `%c` tells `scanf` to skip whitespace (such as a newline) befor
 ### 34. Read a Word into a Character Array
 **Question:** Create `char name[30]`, read one word with `scanf`, and print `Hello, ` followed by the word and `!`. Assume the word is at most 29 characters long.
 
-**Example Input:**
+**Expected Program Output** (Input: Bielefeld)**:**
 ```text
-Bielefeld
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter one word: Hello, Bielefeld!
+Enter one word: Bielefeld
+Hello, Bielefeld!
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -940,7 +922,8 @@ int main() {
 ```
 With input `Bielefeld`, the program prints:
 ```text
-Enter one word: Hello, Bielefeld!
+Enter one word: Bielefeld
+Hello, Bielefeld!
 ```
 `%s` reads one word, stopping at whitespace. With the stated maximum of 29 characters, the word and its terminating `\0` fit in the array.
 :::
@@ -948,14 +931,11 @@ Enter one word: Hello, Bielefeld!
 ### 35. A Two-Number Calculator
 **Question:** Read two integers. Print their sum, product, integer quotient, decimal quotient, and remainder. For this exercise, the second input will not be zero.
 
-**Example Input:**
+**Expected Program Output** <br>
+Input: 9 2
 ```text
-9 2
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter two integers (second must not be zero): Sum: 11
+Enter two integers (second must not be zero): 9 2
+Sum: 11
 Product: 18
 Integer quotient: 4
 Decimal quotient: 4.500000
@@ -981,7 +961,8 @@ int main() {
 ```
 With input `9 2`, the program prints:
 ```text
-Enter two integers (second must not be zero): Sum: 11
+Enter two integers (second must not be zero): 9 2
+Sum: 11
 Product: 18
 Integer quotient: 4
 Decimal quotient: 4.500000
@@ -1028,14 +1009,11 @@ c
 ### 37. Final Challenge — Input, Compound Assignment, and Average
 **Question:** Read two integers. Start `total` with the first number, add the second number using `+=`, then calculate their average as a `double`. Print the total and average.
 
-**Example Input:**
+**Expected Program Output** <br>
+Input: 7 10
 ```text
-7 10
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter two integers: Total: 17
+Enter two integers: 7 10
+Total: 17
 Average: 8.500000
 ```
 
@@ -1059,7 +1037,8 @@ int main() {
 ```
 With input `7 10`, the program prints:
 ```text
-Enter two integers: Total: 17
+Enter two integers: 7 10
+Total: 17
 Average: 8.500000
 ```
 :::

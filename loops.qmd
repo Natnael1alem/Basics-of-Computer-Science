@@ -97,14 +97,10 @@ int main() {
 ### 4. Sum from 1 to N
 **Question:** Read a positive integer `N`. Use a loop to calculate `1 + 2 + ... + N` and print the sum. Assume the result fits in an `int`.
 
-**Example Input:**
+**Expected Program Output** (Input: 4)**:** 
 ```text
-4
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a positive integer: Sum: 10
+Enter a positive integer: 4
+Sum: 10
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -116,6 +112,7 @@ int main() {
     int sum = 0;
     printf("Enter a positive integer: ");
     scanf("%d", &n);
+    printf("\n");
 
     while (i <= n) {
         sum += i;
@@ -131,16 +128,13 @@ int main() {
 ### 5. Sum Until the User Enters 0
 **Question:** Keep reading integers and adding them. Stop when the user enters `0`, and do not add the zero. Print the final sum. Assume the user enters at least one number before the `0`.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 5, 3, 0
 ```text
-5
-3
-0
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a number (0 to stop): Enter a number (0 to stop): Enter a number (0 to stop): Sum: 8
+Enter a number (0 to stop): 5
+Enter a number (0 to stop): 3
+Enter a number (0 to stop): 0
+Sum: 8
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -152,11 +146,13 @@ int main() {
     int sum = 0;
     printf("Enter a number (0 to stop): ");
     scanf("%d", &number);
+    printf("\n");
 
     while (number != 0) {
         sum += number;
         printf("Enter a number (0 to stop): ");
         scanf("%d", &number);
+        printf("\n");
     }
     printf("Sum: %d\n", sum);
     return 0;
@@ -168,14 +164,10 @@ The first number is read before the loop so the condition has a value to check. 
 ### 6. Count the Digits (Optional)
 **Question:** Read a positive integer and print how many digits it has. Repeatedly divide it by `10`.
 
-**Example Input:**
+**Expected Program Output** (Input: 4096)**:**
 ```text
-4096
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a positive integer: Digits: 4
+Enter a positive integer: 4096
+Digits: 4
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -186,6 +178,7 @@ int main() {
     int n, count = 0;
     printf("Enter a positive integer: ");
     scanf("%d", &n);
+    printf("\n");
 
     while (n > 0) {
         n /= 10;
@@ -258,17 +251,14 @@ The update part can be any change, here `i += 3`. After `9`, the next value is `
 ### 9. Sum a Chosen Number of Inputs
 **Question:** First read how many numbers the user will enter, then read exactly that many integers, add them, and print the total. Assume the count is at least `1`. Do not use an array.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 3, 4, 10, -2
 ```text
-3
-4
-10
--2
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-How many numbers? Number 1: Number 2: Number 3: Total: 12
+How many numbers? 3
+Number 1: 4
+Number 2: 10
+Number 3: -2
+Total: 12
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -280,10 +270,12 @@ int main() {
     int sum = 0;
     printf("How many numbers? ");
     scanf("%d", &count);
+    printf("\n");
 
     for (int i = 1; i <= count; i++) {
         printf("Number %d: ", i);
         scanf("%d", &number);
+        printf("\n");
         sum += number;
     }
     printf("Total: %d\n", sum);
@@ -296,14 +288,10 @@ Use `for` when you know in advance how many repetitions you need.
 ### 10. Multiplication Table
 **Question:** Read an integer and print its multiplication table from `number x 1` through `number x 10`.
 
-**Example Input:**
+**Expected Program Output** (Input: 7)**:**
 ```text
-7
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer: 7 x 1 = 7
+Enter an integer: 7
+7 x 1 = 7
 7 x 2 = 14
 7 x 3 = 21
 7 x 4 = 28
@@ -323,6 +311,7 @@ int main() {
     int number;
     printf("Enter an integer: ");
     scanf("%d", &number);
+    printf("\n");
 
     for (int i = 1; i <= 10; i++) {
         printf("%d x %d = %d\n", number, i, number * i);
@@ -335,14 +324,10 @@ int main() {
 ### 11. Factorial
 **Question:** Read an integer `n` from `0` to `12` and print `n!`. Remember that `0!` is `1`. For any other input, print `Invalid input`.
 
-**Example Input:**
+**Expected Program Output** (Input: 5)**:**
 ```text
-5
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter n (0-12): 5! = 120
+Enter n (0-12): 5
+5! = 120
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -354,6 +339,7 @@ int main() {
     int result = 1;
     printf("Enter n (0-12): ");
     scanf("%d", &n);
+    printf("\n");
 
     if (n < 0 || n > 12) {
         printf("Invalid input\n");
@@ -372,14 +358,10 @@ int main() {
 ### 12. Even Numbers up to N
 **Question:** Read `N` and print all even numbers from `2` up to `N` on one line, separated by single spaces. Use a step of `2` in the `for` loop.
 
-**Example Input:**
+**Expected Program Output** (Input: 10)**:**
 ```text
-10
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter N: 2 4 6 8 10
+Enter N: 10
+2 4 6 8 10
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -390,6 +372,7 @@ int main() {
     int n;
     printf("Enter N: ");
     scanf("%d", &n);
+    printf("\n");
 
     for (int i = 2; i <= n; i += 2) {
         if (i > 2) {
@@ -407,18 +390,15 @@ The space is printed before every number except the first, so there is no extra 
 ### 13. Largest of a Chosen Number of Inputs (Optional)
 **Question:** Read how many numbers will be entered, then read that many integers and print the largest. Assume the count is at least `1`. Do not use an array. Keep the largest value seen so far in one variable.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4, 7, -3, 12, 9
 ```text
-4
-7
--3
-12
-9
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-How many numbers? Enter number 1: Enter number 2: Enter number 3: Enter number 4: Largest: 12
+How many numbers? 4
+Enter number 1: 7
+Enter number 2: -3
+Enter number 3: 12
+Enter number 4: 9
+Largest: 12
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -429,12 +409,15 @@ int main() {
     int count, number, largest;
     printf("How many numbers? ");
     scanf("%d", &count);
+    printf("\n");
 
     printf("Enter number 1: ");
     scanf("%d", &largest);
+    printf("\n");
     for (int i = 2; i <= count; i++) {
         printf("Enter number %d: ", i);
         scanf("%d", &number);
+        printf("\n");
         if (number > largest) {
             largest = number;
         }
@@ -478,16 +461,13 @@ The body runs once before the condition `11 < 5` is checked. The condition is fa
 ### 15. Validate a Menu Choice
 **Question:** Keep asking the user for a number from `1` to `3` until the input is valid, then print `Accepted`.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 7, 0, 2
 ```text
-7
-0
-2
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a choice from 1 to 3: Enter a choice from 1 to 3: Enter a choice from 1 to 3: Accepted
+Enter a choice from 1 to 3: 7
+Enter a choice from 1 to 3: 0
+Enter a choice from 1 to 3: 2
+Accepted
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -499,6 +479,7 @@ int main() {
     do {
         printf("Enter a choice from 1 to 3: ");
         scanf("%d", &choice);
+        printf("\n");
     } while (choice < 1 || choice > 3);
 
     printf("Accepted\n");
@@ -638,16 +619,13 @@ int main() {
 ### 20. Infinite Loop with an Exit
 **Question:** Use `while (1)` to read integers until the user enters a negative number. Add up the non-negative numbers and print the sum. Use `break` to leave the loop.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 5, 3, -1
 ```text
-5
-3
--1
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a number (negative to stop): Enter a number (negative to stop): Enter a number (negative to stop): Sum: 8
+Enter a number (negative to stop): 5
+Enter a number (negative to stop): 3
+Enter a number (negative to stop): -1
+Sum: 8
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -661,6 +639,7 @@ int main() {
     while (1) {
         printf("Enter a number (negative to stop): ");
         scanf("%d", &number);
+        printf("\n");
         if (number < 0) {
             break;
         }
@@ -711,14 +690,10 @@ int main() {
 ### 22. Prime Check
 **Question:** Read an integer `n` that is at least `2`. Print `Prime` if it has no divisor from `2` to `n - 1`, otherwise `Not prime`. Use a flag variable and stop the loop with `break` as soon as a divisor is found.
 
-**Example Input:**
+**Expected Program Output** (Input: 17)**:**
 ```text
-17
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter an integer (2 or more): Prime
+Enter an integer (2 or more): 17
+Prime
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -730,6 +705,7 @@ int main() {
     int is_prime = 1;
     printf("Enter an integer (2 or more): ");
     scanf("%d", &n);
+    printf("\n");
 
     for (int i = 2; i < n; i++) {
         if (n % i == 0) {
@@ -752,16 +728,13 @@ The flag starts as "prime" and is set to `0` when a divisor is found. With input
 ### 23. Early Exit with `return`
 **Question:** Read up to `5` integers. If the user enters `0` at any point, print `Zero entered, exiting.` and end the program immediately with `return 0;`. If all five numbers are read without a `0`, print `All numbers read.`
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4, 7, 0
 ```text
-4
-7
-0
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a number: Enter a number: Enter a number: Zero entered, exiting.
+Enter a number: 4
+Enter a number: 7
+Enter a number: 0
+Zero entered, exiting.
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -774,6 +747,7 @@ int main() {
     for (int i = 0; i < 5; i++) {
         printf("Enter a number: ");
         scanf("%d", &number);
+        printf("\n");
         if (number == 0) {
             printf("Zero entered, exiting.\n");
             return 0;
@@ -791,14 +765,10 @@ With the input `1 2 3 4 5`, the program asks five times and then prints `All num
 ### 24. Fibonacci Sequence
 **Question:** Read `N` from `1` to `45` and print the first `N` Fibonacci numbers on one line, separated by spaces, beginning with `0 1 1 2 3 ...`. Each number is the sum of the previous two. Use variables to remember the previous two numbers, not an array. For input outside `1` to `45`, print `Invalid input`.
 
-**Example Input:**
+**Expected Program Output** (Input: 8)**:**
 ```text
-8
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-How many terms (1-45)? 0 1 1 2 3 5 8 13
+How many terms (1-45)? 8
+0 1 1 2 3 5 8 13
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -810,6 +780,7 @@ int main() {
     int a = 0, b = 1;
     printf("How many terms (1-45)? ");
     scanf("%d", &n);
+    printf("\n");
 
     if (n < 1 || n > 45) {
         printf("Invalid input\n");
@@ -891,14 +862,10 @@ int main() {
 ### 27. Star Rectangle
 **Question:** Read the number of rows and columns. Print a rectangle of stars with that size.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 3 5
 ```text
-3 5
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter rows and columns: *****
+Enter rows and columns: 3 5
 *****
 *****
 ```
@@ -911,6 +878,7 @@ int main() {
     int rows, columns;
     printf("Enter rows and columns: ");
     scanf("%d %d", &rows, &columns);
+    printf("\n");
 
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < columns; c++) {
@@ -926,14 +894,10 @@ int main() {
 ### 28. Sum of Digits
 **Question:** Read a positive integer and print the sum of its digits. Use `% 10` to get the last digit and `/ 10` to remove it.
 
-**Example Input:**
+**Expected Program Output** (Input: 1234)**:**
 ```text
-1234
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a positive integer: Digit sum: 10
+Enter a positive integer: 1234
+Digit sum: 10
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -944,6 +908,7 @@ int main() {
     int n, sum = 0;
     printf("Enter a positive integer: ");
     scanf("%d", &n);
+    printf("\n");
 
     while (n > 0) {
         sum += n % 10;
@@ -959,14 +924,11 @@ For `1234`, the loop adds `4`, `3`, `2`, and `1`.
 ### 29. Greatest Common Divisor
 **Question:** Read two positive integers and print their greatest common divisor (GCD) using Euclid's algorithm: while `b` is not `0`, replace `(a, b)` with `(b, a % b)`. The answer is the final `a`.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 48 18
 ```text
-48 18
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter two positive integers: GCD: 6
+Enter two positive integers: 48 18
+GCD: 6
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -977,6 +939,7 @@ int main() {
     int a, b;
     printf("Enter two positive integers: ");
     scanf("%d %d", &a, &b);
+    printf("\n");
 
     while (b != 0) {
         int temp = b;
@@ -993,14 +956,10 @@ Trace for `48 18`: `(48, 18)`, then `(18, 12)`, then `(12, 6)`, then `(6, 0)`. T
 ### 30. Fizz Buzz from 1 to N
 **Question:** Read `N`. For every number from `1` to `N`, print `FizzBuzz` if it is divisible by both `3` and `5`, `Fizz` if divisible by `3`, `Buzz` if divisible by `5`, and otherwise the number. Print one item per line.
 
-**Example Input:**
+**Expected Program Output** (Input: 10)**:**
 ```text
-10
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter N: 1
+Enter N: 10
+1
 2
 Fizz
 4
@@ -1020,6 +979,7 @@ int main() {
     int n;
     printf("Enter N: ");
     scanf("%d", &n);
+    printf("\n");
 
     for (int i = 1; i <= n; i++) {
         if (i % 3 == 0 && i % 5 == 0) {
@@ -1041,14 +1001,11 @@ This combines the loop with the `if` ladder from the Conditional Statements note
 ### 31. Power of a Number (Optional)
 **Question:** Read an integer base and a non-negative integer exponent. Calculate `base` raised to `exponent` using a loop and multiplication only. Assume the result fits in an `int`.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 2 10
 ```text
-2 10
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter base and exponent: 2^10 = 1024
+Enter base and exponent: 2 10
+2^10 = 1024
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -1060,6 +1017,7 @@ int main() {
     int result = 1;
     printf("Enter base and exponent: ");
     scanf("%d %d", &base, &exponent);
+    printf("\n");
 
     for (int i = 0; i < exponent; i++) {
         result *= base;
@@ -1076,19 +1034,16 @@ For an exponent of `0` the loop never runs, and the result stays `1`, which is c
 ### 32. Calculator That Repeats
 **Question:** Extend the calculator from the Conditional Statements notebook (`number operator number`, with `+`, `-`, `*`, `/`). After each result, ask `Calculate again? (y/n): `. If the user enters `y` or `Y`, calculate again. Any other answer ends the program with `Goodbye`. Keep the division-by-zero and unknown-operator messages.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 8 / 2, y, 7 / 0, n
 ```text
-8 / 2
-y
-7 / 0
-n
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter: number operator number: Result: 4.00
-Calculate again? (y/n): Enter: number operator number: Cannot divide by zero
-Calculate again? (y/n): Goodbye
+Enter: number operator number: 8 / 2
+Result: 4.00
+Calculate again? (y/n): y
+Enter: number operator number: 7 / 0
+Cannot divide by zero
+Calculate again? (y/n): n
+Goodbye
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -1102,6 +1057,7 @@ int main() {
         char op;
         printf("Enter: number operator number: ");
         scanf("%lf %c %lf", &a, &op, &b);
+        printf("\n");
 
         if (op == '+') {
             printf("Result: %.2f\n", a + b);
@@ -1121,6 +1077,7 @@ int main() {
 
         printf("Calculate again? (y/n): ");
         scanf(" %c", &again);
+        printf("\n");
     }
     printf("Goodbye\n");
     return 0;
@@ -1138,27 +1095,24 @@ Starting `again` as `'y'` lets the loop run the first time. The space in `" %c"`
 - `4` converts Fahrenheit to Celsius
 - `0` exits
 
-**Example Input:**
-```text
-1
-250
-0
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
+**Expected Program Output:**<br>
+Input: 1, 250, 0
 ```text
 1: cm to m
 2: m to cm
 3: C to F
 4: F to C
 0: exit
-Choice: Enter value: Result: 2.50 m
+Choice: 1
+Enter value: 250
+Result: 2.50 m
 1: cm to m
 2: m to cm
 3: C to F
 4: F to C
 0: exit
-Choice: Goodbye
+Choice: 0
+Goodbye
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -1171,12 +1125,14 @@ int main() {
         double value;
         printf("1: cm to m\n2: m to cm\n3: C to F\n4: F to C\n0: exit\nChoice: ");
         scanf("%d", &choice);
+        printf("\n");
 
         if (choice == 0) {
             printf("Goodbye\n");
         } else if (choice >= 1 && choice <= 4) {
             printf("Enter value: ");
             scanf("%lf", &value);
+            printf("\n");
             if (choice == 1) {
                 printf("Result: %.2f m\n", value / 100.0);
             } else if (choice == 2) {
@@ -1203,7 +1159,7 @@ The games below use `rand()` from `<stdlib.h>` to let the computer choose random
 ### 34. Random-Number Warm-Up (Optional)
 **Question:** Seed the random-number generator once and choose a random integer from `0` to `2`. Print `Rock` for `0`, `Paper` for `1`, or `Scissors` for `2`.
 
-**Expected Output** (one possible run):
+**Expected Output** (one possible run)**:**
 ```text
 Paper
 ```
@@ -1231,21 +1187,59 @@ int main() {
 `rand() % 3` gives `0`, `1`, or `2`. The output changes from run to run.
 :::
 
-### 35. Guess the Number
-**Question:** The computer picks a secret number from `1` to `20`. The player has at most `5` guesses. After each wrong guess, print `Too low` or `Too high`. If the player guesses correctly, print `Correct! You won.` and stop. If all `5` guesses are used, print `Game over. The number was X.`
+### 35. Guess the Number in Three Attempts
+**Question:** The computer picks a secret number from `1` to `5`. The player has at most `3` guesses. If the player guesses correctly, print `You won!` and stop. If all `3` guesses are wrong, print `You lost! The number was X.`
 
-**Example Input** (the secret number is `12`):
+**Expected Program Output:**<br>
+Input: 2, 5, 4 (the secret number is `4`)
 ```text
-10
-15
-12
+Guess the number (1-5): 2
+Guess the number (1-5): 5
+Guess the number (1-5): 4
+You won!
 ```
 
-**Expected Program Output** (not counting the characters typed by the user):
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    srand((unsigned)time(NULL));
+    int secret = rand() % 5 + 1;
+    int guess;
+
+    for (int i = 0; i < 3; i++) {
+        printf("Guess the number (1-5): ");
+        scanf("%d", &guess);
+        printf("\n");
+
+        if (guess == secret) {
+            printf("You won!\n");
+            return 0;
+        }
+    }
+
+    printf("You lost! The number was %d.\n", secret);
+    return 0;
+}
+```
+The `for` loop allows at most three guesses. `return 0` ends the program immediately when the guess is correct; otherwise, the message after the loop is printed.
+:::
+
+### 36. Guess the Number (Second Version)
+**Question:** The computer picks a secret number from `1` to `20`. The player has at most `5` guesses. After each wrong guess, print `Too low` or `Too high`. If the player guesses correctly, print `Correct! You won.` and stop. If all `5` guesses are used, print `Game over. The number was X.`
+
+**Expected Program Output:**<br>
+Input: 10, 15, 12 (the secret number is `12`)
 ```text
-Guess 1 of 5: Too low
-Guess 2 of 5: Too high
-Guess 3 of 5: Correct! You won.
+Guess 1 of 5: 10
+Too low
+Guess 2 of 5: 15
+Too high
+Guess 3 of 5: 12
+Correct! You won.
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -1263,6 +1257,7 @@ int main() {
         int guess;
         printf("Guess %d of 5: ", attempt);
         scanf("%d", &guess);
+        printf("\n");
 
         if (guess == secret) {
             printf("Correct! You won.\n");
@@ -1284,21 +1279,19 @@ int main() {
 The `won` flag tells the code after the loop whether the loop ended by `break` or by running out of guesses. If the player misses all five guesses, the program prints `Game over. The number was 12.`
 :::
 
-### 36. Rock, Paper, Scissors: Play Again
+### 37. Rock, Paper, Scissors: Play Again
 **Question:** The player enters `r`, `p`, or `s`. The computer chooses randomly (`0` rock, `1` paper, `2` scissors). Print both choices and the result (`Draw`, `You win`, or `Computer wins`). Reject an invalid choice with `Invalid choice`. After every round, ask `Play again? (y/n): `. Repeat while the answer is `y` or `Y`, then print `Thanks for playing`.
 
-**Example Input** (the computer happens to choose Scissors):
+**Expected Program Output:**<br>
+Input: r, n<br>
+Computer's Choice: Scissors
 ```text
-r
-n
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Choose r (rock), p (paper), or s (scissors): You: Rock
+Choose r (rock), p (paper), or s (scissors): r
+You: Rock
 Computer: Scissors
 You win
-Play again? (y/n): Thanks for playing
+Play again? (y/n): n
+Thanks for playing
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -1316,6 +1309,7 @@ int main() {
         int computer = rand() % 3;  /* 0 rock, 1 paper, 2 scissors */
         printf("Choose r (rock), p (paper), or s (scissors): ");
         scanf(" %c", &player);
+        printf("\n");
 
         if (player != 'r' && player != 'p' && player != 's') {
             printf("Invalid choice\n");
@@ -1345,6 +1339,7 @@ int main() {
 
         printf("Play again? (y/n): ");
         scanf(" %c", &again);
+        printf("\n");
     }
     printf("Thanks for playing\n");
     return 0;
@@ -1353,37 +1348,35 @@ int main() {
 Seed with `srand` once, outside the loop. Seeding inside the loop would repeat the same "random" number when rounds happen within the same second.
 :::
 
-### 37. Rock, Paper, Scissors: First to 3 Wins, Game Over After 5 Losses
+### 38. Rock, Paper, Scissors: First to 3 Wins, Game Over After 5 Losses
 **Question:** Extend the previous game into a match. Count the player's wins and losses. Draws and invalid choices count for neither side. After every round, print the score in the form `Wins: X | Losses: Y`. The match ends as soon as the player has `3` wins (print `You won the game!`) or `5` losses (print `Game over: you lost 5 rounds.`). Use a loop whose condition checks both counters.
 
-**Example Input** (the computer happens to choose Scissors, Scissors, Scissors, Scissors, Rock):
+**Expected Program Output:**<br>
+Input: r, p, s, r, p<br>
+Computer's Choices: Scissors, Scissors, Scissors, Scissors, Rock
 ```text
-r
-p
-s
-r
-p
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Choose r (rock), p (paper), or s (scissors): You: Rock
+Choose r (rock), p (paper), or s (scissors): r
+You: Rock
 Computer: Scissors
 You win this round
 Wins: 1 | Losses: 0
-Choose r (rock), p (paper), or s (scissors): You: Paper
+Choose r (rock), p (paper), or s (scissors): p
+You: Paper
 Computer: Scissors
 Computer wins this round
 Wins: 1 | Losses: 1
-Choose r (rock), p (paper), or s (scissors): You: Scissors
+Choose r (rock), p (paper), or s (scissors): s
+You: Scissors
 Computer: Scissors
 Draw
 Wins: 1 | Losses: 1
-Choose r (rock), p (paper), or s (scissors): You: Rock
+Choose r (rock), p (paper), or s (scissors): r
+You: Rock
 Computer: Scissors
 You win this round
 Wins: 2 | Losses: 1
-Choose r (rock), p (paper), or s (scissors): You: Paper
+Choose r (rock), p (paper), or s (scissors): p
+You: Paper
 Computer: Rock
 You win this round
 Wins: 3 | Losses: 1
@@ -1406,6 +1399,7 @@ int main() {
 
         printf("Choose r (rock), p (paper), or s (scissors): ");
         scanf(" %c", &player);
+        printf("\n");
 
         if (player != 'r' && player != 'p' && player != 's') {
             printf("Invalid choice\n");

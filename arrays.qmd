@@ -113,14 +113,11 @@ int main() {
 ### 5. Read Three Values and Print Them Backwards
 **Question:** Read three integers into three elements of an array. Without a loop, print the third, then the second, then the first, separated by spaces.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4 8 15
 ```text
-4 8 15
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter three integers: 15 8 4
+Enter three integers: 4 8 15
+15 8 4
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -131,6 +128,7 @@ int main() {
     int values[3];
     printf("Enter three integers: ");
     scanf("%d %d %d", &values[0], &values[1], &values[2]);
+    printf("\n");
     printf("%d %d %d\n", values[2], values[1], values[0]);
     return 0;
 }
@@ -167,14 +165,11 @@ Writing `values[0] = values[3]; values[3] = values[0];` would lose the original 
 ### 7. Sum and Average of Three Values
 **Question:** Read three integers into an array. Without a loop, print their sum, and their average with two decimal places.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4 7 10
 ```text
-4 7 10
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter three integers: Sum: 21
+Enter three integers: 4 7 10
+Sum: 21
 Average: 7.00
 ```
 
@@ -186,6 +181,7 @@ int main() {
     int values[3];
     printf("Enter three integers: ");
     scanf("%d %d %d", &values[0], &values[1], &values[2]);
+    printf("\n");
 
     int sum = values[0] + values[1] + values[2];
     printf("Sum: %d\n", sum);
@@ -366,12 +362,8 @@ Each element is doubled and printed, so the array becomes `{4, 8, 12}`. The last
 ### 14. Read and Echo Five Values
 **Question:** Read five integers into an array with one loop. Then use a second loop to print them in the same order, separated by single spaces.
 
-**Example Input:**
-```text
-3 9 -2 14 6
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
+**Expected Program Output:**<br>
+Input: 3 9 -2 14 6
 ```text
 Enter five integers: 3 9 -2 14 6
 ```
@@ -386,6 +378,7 @@ int main() {
     for (int i = 0; i < 5; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
 
     for (int i = 0; i < 5; i++) {
         if (i > 0) {
@@ -403,14 +396,15 @@ The first loop fills the array and the second prints it. The space is printed be
 ### 15. Sum and Average
 **Question:** Read five integers into an array, asking for each value with `Enter value 1: `, `Enter value 2: `, and so on. Print their sum and their average with two decimal places. Do not calculate the average with integer division.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4, 8, 15, 16, 23
 ```text
-4 8 15 16 23
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter value 1: Enter value 2: Enter value 3: Enter value 4: Enter value 5: Sum: 66
+Enter value 1: 4
+Enter value 2: 8
+Enter value 3: 15
+Enter value 4: 16
+Enter value 5: 23
+Sum: 66
 Average: 13.20
 ```
 
@@ -439,14 +433,11 @@ The prompt shows `i + 1` because people count from `1`, while the array index st
 ### 16. Smallest and Largest
 **Question:** Read five integers into an array and print the smallest and the largest. Do not assume the values are positive. Initialize both results from the first array element.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 7 -3 12 0 5
 ```text
-7 -3 12 0 5
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter five integers: Smallest: -3
+Enter five integers: 7 -3 12 0 5
+Smallest: -3
 Largest: 12
 ```
 
@@ -460,6 +451,7 @@ int main() {
     for (int i = 0; i < 5; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
 
     int smallest = values[0];
     int largest = values[0];
@@ -482,14 +474,11 @@ Starting with `0` would give a wrong answer if all values were positive (for the
 ### 17. Count Even and Odd Values (Optional)
 **Question:** Read eight integers into an array. Count how many are even and how many are odd, and print both counts.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4 7 10 3 8 12 2 9
 ```text
-4 7 10 3 8 12 2 9
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter eight integers: Even: 5
+Enter eight integers: 4 7 10 3 8 12 2 9
+Even: 5
 Odd: 3
 ```
 
@@ -505,6 +494,7 @@ int main() {
     for (int i = 0; i < 8; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
 
     for (int i = 0; i < 8; i++) {
         if (values[i] % 2 == 0) {
@@ -523,15 +513,12 @@ int main() {
 ### 18. Search an Array
 **Question:** Read five integers into an array, then read a target value. Print `Found` if the target appears in the array, otherwise `Not found`. Stop the loop with `break` as soon as a match is found.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 8 3 11 5 20, 5
 ```text
-8 3 11 5 20
-5
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter five integers: Target: Found
+Enter five integers: 8 3 11 5 20
+Target: 5
+Found
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -545,8 +532,10 @@ int main() {
     for (int i = 0; i < 5; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
     printf("Target: ");
     scanf("%d", &target);
+    printf("\n");
 
     for (int i = 0; i < 5; i++) {
         if (values[i] == target) {
@@ -569,14 +558,11 @@ Declaring `found` before the loop lets the code after the loop use it. The `brea
 ### 19. Position of the Largest Value
 **Question:** Read five integers into an array. Print the largest value and its index. If the largest value appears more than once, report the first index.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 4 9 2 9 1
 ```text
-4 9 2 9 1
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter five integers: Largest: 9 at index 1
+Enter five integers: 4 9 2 9 1
+Largest: 9 at index 1
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -589,6 +575,7 @@ int main() {
     for (int i = 0; i < 5; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
 
     int largest = values[0];
     int index = 0;
@@ -608,15 +595,12 @@ Using `>` and not `>=` keeps the first index when the largest value appears twic
 ### 20. Count Occurrences
 **Question:** Read eight integers into an array, then read a target value. Print how many times the target appears.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 3 5 3 7 3 1 5 3 3
 ```text
-3 5 3 7 3 1 5 3
-3
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter eight integers: Target: Count: 4
+Enter eight integers: 3 5 3 7 3 1 5 3
+Target: 3
+Count: 4
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -630,8 +614,10 @@ int main() {
     for (int i = 0; i < 8; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
     printf("Target: ");
     scanf("%d", &target);
+    printf("\n");
 
     for (int i = 0; i < 8; i++) {
         if (values[i] == target) {
@@ -677,14 +663,11 @@ The loop starts at the last valid index `length - 1` and counts down to `0`.
 ### 22. Reverse an Array in Place
 **Question:** Read six integers into an array. Reverse the elements inside that same array, then print it. Use one loop that swaps the first with the last, the second with the second-to-last, and so on. Do not swap any element more than once.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 1 2 3 4 5 6
 ```text
-1 2 3 4 5 6
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter six integers: 6 5 4 3 2 1
+Enter six integers: 1 2 3 4 5 6
+6 5 4 3 2 1
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -697,6 +680,7 @@ int main() {
     for (int i = 0; i < 6; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
 
     for (int i = 0; i < 6 / 2; i++) {
         int temp = values[i];
@@ -720,14 +704,12 @@ The swap loop only runs for half the array (`6 / 2 = 3` swaps). Going through th
 ### 23. Make a Doubled Copy (Optional)
 **Question:** Read five integers into `values`. Store twice each value in a second array called `doubled`. Print `values` on one line and `doubled` on the next, with single spaces between the numbers.
 
-**Example Input:**
-```text
-1 2 3 4 5
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
+**Expected Program Output:**<br>
+Input: 1 2 3 4 5
 ```text
 Enter five integers: 1 2 3 4 5
+
+1 2 3 4 5
 2 4 6 8 10
 ```
 
@@ -743,6 +725,7 @@ int main() {
         scanf("%d", &values[i]);
         doubled[i] = values[i] * 2;
     }
+    printf("\n");
 
     for (int i = 0; i < 5; i++) {
         if (i > 0) {
@@ -766,14 +749,11 @@ int main() {
 ### 24. Rotate Left by One
 **Question:** Read five integers into an array. Move every element one position to the left, and move the first element to the end. Print the result on one line separated by spaces.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 1 2 3 4 5
 ```text
-1 2 3 4 5
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter five integers: 2 3 4 5 1
+Enter five integers: 1 2 3 4 5
+2 3 4 5 1
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -786,6 +766,7 @@ int main() {
     for (int i = 0; i < 5; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
 
     int first = values[0];
     for (int i = 0; i < 4; i++) {
@@ -813,14 +794,10 @@ These exercises combine integer division, remainder, loops, conditions, and arra
 ### 25. Decimal Integer to Binary
 **Question:** Read a non-negative decimal integer and print its binary representation. Store the remainders of the repeated division by `2` in an `int` array, then print them in reverse order. Handle input `0` explicitly so the output is `0`. Assume the number fits in an `int`.
 
-**Example Input:**
+**Expected Program Output** (Input: 13)**:**
 ```text
-13
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a non-negative integer: Binary: 1101
+Enter a non-negative integer: 13
+Binary: 1101
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -833,6 +810,7 @@ int main() {
     int count = 0;
     printf("Enter a non-negative integer: ");
     scanf("%d", &number);
+    printf("\n");
 
     if (number < 0) {
         printf("Please enter a non-negative integer\n");
@@ -863,14 +841,10 @@ For `13`, the remainders are `1`, `0`, `1`, `1` in that order. Printing them bac
 ### 26. Binary Integer to Decimal
 **Question:** Read a non-negative binary number as an integer, for example `1011`, and convert it to decimal. Process the digits from right to left with `% 10` and `/ 10`. The rightmost digit has place value `1`, the next `2`, then `4`, `8`, and so on. If any digit is not `0` or `1`, print `Invalid binary number`.
 
-**Example Input:**
+**Expected Program Output** (Input: 1011)**:**
 ```text
-1011
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter a non-negative binary integer: Decimal: 11
+Enter a non-negative binary integer: 1011
+Decimal: 11
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -884,6 +858,7 @@ int main() {
     int valid = 1;
     printf("Enter a non-negative binary integer: ");
     scanf("%d", &binary);
+    printf("\n");
 
     if (binary < 0) {
         printf("Invalid binary number\n");
@@ -917,14 +892,11 @@ For `1011`, the digits from the right are `1`, `1`, `0`, `1`, which give `1 + 2 
 ### 27. Score Statistics
 **Question:** Read five scores into an array. Print the highest score, the lowest score, the average with two decimal places, and how many scores are above the average.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 70 85 90 60 95
 ```text
-70 85 90 60 95
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter five scores: Highest: 95
+Enter five scores: 70 85 90 60 95
+Highest: 95
 Lowest: 60
 Average: 80.00
 Above average: 3
@@ -976,14 +948,11 @@ The average is only known after all scores are read, so counting the scores abov
 ### 28. Final Challenge — Sort Five Numbers (Optional)
 **Question:** Read five integers into an array and print them in ascending order. Use bubble sort: repeatedly compare neighbouring elements and swap them if the left one is larger. Each pass moves the largest remaining value to the end.
 
-**Example Input:**
+**Expected Program Output:**<br>
+Input: 5 2 9 1 7
 ```text
-5 2 9 1 7
-```
-
-**Expected Program Output** (not counting the characters typed by the user):
-```text
-Enter five integers: 1 2 5 7 9
+Enter five integers: 5 2 9 1 7
+1 2 5 7 9
 ```
 
 ::: {.callout-tip collapse="true" title="Show answer"}
@@ -996,6 +965,7 @@ int main() {
     for (int i = 0; i < 5; i++) {
         scanf("%d", &values[i]);
     }
+    printf("\n");
 
     for (int pass = 0; pass < 4; pass++) {
         for (int i = 0; i < 4 - pass; i++) {
