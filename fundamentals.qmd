@@ -299,7 +299,7 @@ com
 ### 12. Print a Character and Its Code
 **Question:** Create a `char` named `letter` with value `'A'`. Print the character with `%c`, then its numeric character code with `%d`.
 
-**Expected Output** (on an ASCII-compatible system):
+**Expected Output** (on an ASCII-compatible system)**:**
 ```text
 A
 65
@@ -800,7 +800,8 @@ int main() {
 ### 31. Read Two Integers
 **Question:** Read two integers into `a` and `b`. Print their sum and the result of `a - b`.
 
-**Expected Program Output** (Input: 10 4)**:**
+**Expected Program Output** <br>
+Input: 10 4
 ```text
 Enter two integers: 10 4
 Sum: 14
@@ -831,7 +832,8 @@ Difference: 6
 ### 32. Read a `float` and a `double`
 **Question:** Use `scanf` to read a `float` temperature and a `double` distance. Print both values using the default `%f` format. Pay attention to the format strings used by `scanf` and `printf`.
 
-**Expected Program Output** (Input: 21.75 3.14159)**:**
+**Expected Program Output** <br>
+Input: 21.75 3.14159
 ```text
 Enter temperature and distance: 21.75 3.14159
 Temperature: 21.750000
