@@ -1,0 +1,1266 @@
+---
+title: "C Functions"
+---
+
+## Description
+
+This is the fifth notebook. It introduces functions in C. It starts with functions without a return value (no parameters, one parameter, several parameters), then functions that return a value, then pointers as parameters so a function can change variables in the caller, then arrays and strings as parameters, and finally mixed practice that combines everything.
+
+## How to use the pack
+
+Work through the exercises in order, since later ones build on earlier ones. Attempt the Questions before revealing the answer. If a solution is unclear, ask LLMs for a step-by-step explanation.
+
+## Part 1: Function Basics (Void Functions)
+
+A function is a named block of code that you can call as often as you like. A function with return type `void` does something but gives nothing back. In C, a function must be declared or defined above the place where it is called. Write `(void)` for an empty parameter list. Empty parentheses in C mean "unspecified parameters", not "no parameters".
+
+### 1. Void Functions with No Parameters
+**Question:** Define two functions that take no parameters and return nothing (`void`), each printing a different message. Call only one of them from `main`.
+
+**Hint:** The function must be defined above `main` before you can call it there.
+
+**Expected Output:**
+```text
+another function is running
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void simple_function(void) {
+    printf("simple function is running\n");
+}
+
+void another_function(void) {
+    printf("another function is running\n");
+}
+
+int main() {
+    another_function();
+    return 0;
+}
+```
+`simple_function` is defined but never called, so its message never appears. A function only runs when it is called.
+:::
+
+### 2. Call Both Functions (Optional)
+**Question:** Define `greet_morning` and `greet_evening`, two functions that take no parameters and each print a different greeting. Call both from `main`.
+
+**Expected Output:**
+```text
+Good morning!
+Good evening!
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void greet_morning(void) {
+    printf("Good morning!\n");
+}
+
+void greet_evening(void) {
+    printf("Good evening!\n");
+}
+
+int main() {
+    greet_morning();
+    greet_evening();
+    return 0;
+}
+```
+The functions run in the order they are called in `main`, not in the order they are defined.
+:::
+
+### 3. Void Functions with One Parameter
+**Question:** Write two functions, each taking exactly one parameter: `print_text` takes a string and prints it, `print_number` takes an `int` and prints it.
+
+**Hint:** A string parameter is written as `const char text[]`. The `const` promises that the function will not change the text.
+
+**Expected Output** (name = "smit", number = 11)**:**
+```text
+smit
+11
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_text(const char text[]) {
+    printf("%s\n", text);
+}
+
+void print_number(int number) {
+    printf("%d\n", number);
+}
+
+int main() {
+    char name[] = "smit";
+    print_text(name);
+    print_number(11);
+    return 0;
+}
+```
+The value passed in `main` is matched with the parameter by position. `%s` prints a string and `%d` prints an `int`.
+:::
+
+### 4. One Parameter (Optional)
+**Question:** Write `print_city`, which takes a string and prints it, and `print_age`, which takes an `int` and prints it.
+
+**Expected Output** (city = "Bielefeld", age = 22)**:**
+```text
+Bielefeld
+22
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_city(const char city[]) {
+    printf("%s\n", city);
+}
+
+void print_age(int age) {
+    printf("%d\n", age);
+}
+
+int main() {
+    char city[] = "Bielefeld";
+    print_city(city);
+    print_age(22);
+    return 0;
+}
+```
+:::
+
+### 5. Void Functions with Multiple Parameters
+**Question:** Write `print_two_numbers`, which takes two `int`s and prints both separated by a comma and a space, and `print_sum`, which takes two `int`s, adds them, and prints the total.
+
+**Expected Output** (a = 10, b = 2)**:**
+```text
+10, 2
+12
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_two_numbers(int a, int b) {
+    printf("%d, %d\n", a, b);
+}
+
+void print_sum(int a, int b) {
+    int c = a + b;
+    printf("%d\n", c);
+}
+
+int main() {
+    print_two_numbers(10, 2);
+    print_sum(10, 2);
+    return 0;
+}
+```
+Parameters are separated by commas, and each one needs its own type. Writing `int a, b` is allowed in a variable declaration, but in a parameter list it must be `int a, int b`.
+:::
+
+### 6. Multiple Parameters (Optional)
+**Question:** Write `print_two_names`, which takes two strings and prints both separated by `" and "`, and `print_product`, which takes two `int`s, multiplies them, and prints the result.
+
+**Expected Output** (name1 = "Anna", name2 = "Ben", a = 6, b = 7)**:**
+```text
+Anna and Ben
+42
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_two_names(const char name1[], const char name2[]) {
+    printf("%s and %s\n", name1, name2);
+}
+
+void print_product(int a, int b) {
+    int c = a * b;
+    printf("%d\n", c);
+}
+
+int main() {
+    print_two_names("Anna", "Ben");
+    print_product(6, 7);
+    return 0;
+}
+```
+A string literal such as `"Anna"` can be passed directly, without a variable.
+:::
+
+## Part 2: Functions that Return a Value
+
+A function with a return type such as `int` or `float` hands a result back to the caller with `return`. The call itself then acts like a value: it can be stored in a variable or used directly inside `printf`.
+
+### 7. Return a Value
+**Question:** Rewrite `print_sum` as a function called `sum` that returns the total instead of printing it. In `main`, use the returned value in two ways: once by storing it in a variable first, and once by passing the function call directly to `printf`.
+
+**Expected Output** (a = 11, b = 15)**:**
+```text
+26
+26
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int sum(int a, int b) {
+    int c = a + b;
+    return c;
+}
+
+int main() {
+    int number = sum(11, 15);
+    printf("%d\n", number);
+    printf("%d\n", sum(11, 15));
+    return 0;
+}
+```
+The call `sum(11, 15)` is replaced by the value `26`. Printing is now the job of the caller, which makes `sum` reusable for anything, not only printing.
+:::
+
+### 8. Return a Product (Optional)
+**Question:** Write a function `multiply` that takes two `int`s and returns their product. In `main`, use the returned value in two ways: once by storing it in a variable first, and once by passing the function call directly to `printf`.
+
+**Expected Output** (a = 6, b = 7)**:**
+```text
+42
+42
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int multiply(int a, int b) {
+    int c = a * b;
+    return c;
+}
+
+int main() {
+    int result = multiply(6, 7);
+    printf("%d\n", result);
+    printf("%d\n", multiply(6, 7));
+    return 0;
+}
+```
+:::
+
+### 9. Average with Type Casting
+**Question:** Write a function `avg` that takes two integers and returns their average as a `float`. Use type casting so the division is not rounded down to an integer. Print the result with one decimal place.
+
+**Hint:** If both parameters are `int`, then `a + b` is computed as an `int`, and the division by `2` is still an integer division. Cast before dividing.
+
+**Expected Output** (a = 5, b = 10)**:**
+```text
+7.5
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+float avg(int a, int b) {
+    return (float) (a + b) / 2;
+}
+
+int main() {
+    float result = avg(5, 10);
+    printf("%.1f\n", result);
+    return 0;
+}
+```
+The cast turns `a + b` into a `float` first, so the division by `2` is a floating point division. `%.1f` prints one decimal place.
+:::
+
+**Comprehension:** What happens if `result` is declared as `int` instead of `float`? Try it.
+
+::: {.callout-tip collapse="true" title="Show answer"}
+The `float` value `7.5` is converted to an `int` when it is stored, and the decimal part is cut off, so `result` becomes `7`. You would also have to print it with `%d`, because `%f` with an `int` is undefined behavior.
+:::
+
+### 10. Percentage (Optional)
+**Question:** Write a function `percentage` that takes two integers, `part` and `whole`, and returns `part` as a percentage of `whole`, expressed as a `float`. Print the result with one decimal place.
+
+**Hint:** Same trick as `avg`. Cast before dividing so you do not lose the decimal part.
+
+**Expected Output** (part = 3, whole = 8)**:**
+```text
+37.5
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+float percentage(int part, int whole) {
+    return (float) (part * 100) / whole;
+}
+
+int main() {
+    float result = percentage(3, 8);
+    printf("%.1f\n", result);
+    return 0;
+}
+```
+`part * 100` is `300`, and `300.0 / 8` is `37.5`. Without the cast, `300 / 8` would give `37`.
+:::
+
+### 11. The Integer Division Trap
+**Question:** Predict the output. The function returns a `float`, but the cast is missing.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+float avg(int a, int b) {
+    return (a + b) / 2;
+}
+
+int main() {
+    printf("%.1f\n", avg(5, 10));
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+7.0
+```
+`(a + b) / 2` is `15 / 2`, which is an integer division and gives `7`. Only after that is `7` converted to the `float` `7.0`. The return type does not change how the division inside the function is calculated.
+:::
+
+### 12. Function Prototypes
+**Question:** Rewrite exercise 7 so that `main` comes first in the file and `sum` is defined below it. Add a prototype above `main` so the code still compiles.
+
+**Hint:** A prototype is the function header followed by a semicolon. Parameter names are optional in a prototype.
+
+**Expected Output** (a = 11, b = 15)**:**
+```text
+26
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int sum(int a, int b);
+
+int main() {
+    printf("%d\n", sum(11, 15));
+    return 0;
+}
+
+int sum(int a, int b) {
+    return a + b;
+}
+```
+The prototype tells the compiler the name, the parameter types, and the return type before the function is used. The full definition can then appear anywhere below. Larger programs list all prototypes at the top, so `main` can stay at the start of the file.
+:::
+
+## Part 3: No Overloading in C
+
+C++ lets you define several functions with the same name and different parameter types. C does not. Every function needs a unique name, so the type is usually part of the name.
+
+### 13. One Name per Type
+**Question:** Define `add_int`, which takes two `int`s and returns an `int`, and `add_double`, which takes two `double`s and returns a `double`. Call both from `main`. Print the `double` result with one decimal place.
+
+**Expected Output:**
+```text
+5
+6.0
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int add_int(int a, int b) {
+    return a + b;
+}
+
+double add_double(double a, double b) {
+    return a + b;
+}
+
+int main() {
+    printf("%d\n", add_int(2, 3));
+    printf("%.1f\n", add_double(2.5, 3.5));
+    return 0;
+}
+```
+In C++ both functions could be called `add` and the compiler would pick one by looking at the argument types. In C you choose the function yourself by choosing its name.
+:::
+
+**Comprehension:** What happens if you define two functions that are both named `add` in C, one with `int` parameters and one with `double` parameters? What does `add_int(2, 3.5)` print?
+
+::: {.callout-tip collapse="true" title="Show answer"}
+Two functions with the same name give a compile error, because C does not allow redefinition. For `add_int(2, 3.5)`, the argument `3.5` is converted to an `int` when it is passed, and the decimal part is cut off. The function receives `2` and `3`, so the result is `5`, not `5.5`. Some compilers print a warning about this conversion.
+:::
+
+### 14. Multiply for Two Types (Optional)
+**Question:** Define `multiply_int` and `multiply_double`, one for two `int`s and one for two `double`s. Call both from `main`. Print the `double` result with two decimal places.
+
+**Expected Output:**
+```text
+15
+8.75
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int multiply_int(int a, int b) {
+    return a * b;
+}
+
+double multiply_double(double a, double b) {
+    return a * b;
+}
+
+int main() {
+    printf("%d\n", multiply_int(3, 5));
+    printf("%.2f\n", multiply_double(2.5, 3.5));
+    return 0;
+}
+```
+:::
+
+## Part 4: Pass by Value and Pointers
+
+C always passes arguments by value: the function receives a copy. To let a function change a variable of the caller, pass the address of the variable with `&`. The function receives it as a pointer parameter such as `int *p`, and uses `*p` to read or write the original value. C has no references like C++ (`int &a`), pointers are the way to do this.
+
+### 15. Pass by Value: The Original Stays Unchanged
+**Question:** Predict the output of the code below. Explain why changing `num` inside `change_value` does not affect `original` in `main`.
+
+**Hint:** When a variable is passed by value, the function receives a copy. Changes to the copy never touch the original.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+void change_value(int num) {
+    num = 100;
+    printf("Inside function: num = %d\n", num);
+}
+
+int main() {
+    int original = 5;
+    printf("Before function (inside main): original = %d\n", original);
+    change_value(original);
+    printf("After function (inside main): original = %d\n", original);
+    original += 10;
+    printf("Final (inside main): original = %d\n", original);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+Before function (inside main): original = 5
+Inside function: num = 100
+After function (inside main): original = 5
+Final (inside main): original = 15
+```
+`num` is a separate variable that starts as a copy of `original`. Setting `num = 100` changes only the copy, which disappears when the function ends.
+:::
+
+### 16. Pass by Value (Optional)
+**Question:** Predict the output of the code below. `double_value` doubles `num` inside the function. Does that change `original` in `main`?
+
+**The Code:**
+```c
+#include <stdio.h>
+
+void double_value(int num) {
+    num = num * 2;
+    printf("Inside function: num = %d\n", num);
+}
+
+int main() {
+    int original = 8;
+    printf("Before function (inside main): original = %d\n", original);
+    double_value(original);
+    printf("After function (inside main): original = %d\n", original);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+Before function (inside main): original = 8
+Inside function: num = 16
+After function (inside main): original = 8
+```
+:::
+
+### 17. Change a Variable Through a Pointer
+**Question:** Predict the output.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+void add_ten(int *p) {
+    *p = *p + 10;
+}
+
+int main() {
+    int x = 5;
+    add_ten(&x);
+    add_ten(&x);
+    printf("%d\n", x);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+25
+```
+`&x` passes the address of `x`. Inside the function, `*p` means "the variable at that address", which is `x` itself, so `x` grows from `5` to `15` to `25`.
+:::
+
+### 18. Swap Two Numbers
+**Question:** Write a function `swap_numbers` that swaps the values of two integers using pointers, so the change is visible back in `main`.
+
+**Hint:** An `*` after the type in the parameter list (`int *a`) makes the parameter a pointer. The caller passes addresses with `&`.
+
+**Expected Output** (x = 5, y = 10)**:**
+```text
+Before swap: x = 5, y = 10
+After swap: x = 10, y = 5
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void swap_numbers(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 5;
+    int y = 10;
+    printf("Before swap: x = %d, y = %d\n", x, y);
+    swap_numbers(&x, &y);
+    printf("After swap: x = %d, y = %d\n", x, y);
+    return 0;
+}
+```
+`temp` saves the first value, as in the array swap from the previous notebook. Writing `a = b;` without the `*` would only change the local pointers and swap nothing.
+:::
+
+### 19. Increment Both (Optional)
+**Question:** Write a function `increment_both` that takes two integers by pointer and increases each of them by `1`, so the change is visible back in `main`.
+
+**Expected Output** (x = 5, y = 10)**:**
+```text
+Before increment: x = 5, y = 10
+After increment: x = 6, y = 11
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void increment_both(int *a, int *b) {
+    *a = *a + 1;
+    *b = *b + 1;
+}
+
+int main() {
+    int x = 5;
+    int y = 10;
+    printf("Before increment: x = %d, y = %d\n", x, y);
+    increment_both(&x, &y);
+    printf("After increment: x = %d, y = %d\n", x, y);
+    return 0;
+}
+```
+:::
+
+### 20. Return Multiple Results with Pointers
+**Question:** A function can only return one value directly, but sometimes you need more than one, for example both the sum and the average of two numbers. Write a `void` function `sum_and_average` that takes two integers plus two pointer parameters (`int *sum`, `double *average`), and fills them in instead of returning anything. Print the average with two decimal places.
+
+**Hint:** Since `sum` and `average` are pointers to variables of `main`, whatever the function writes through them is visible in `main` after the call.
+
+**Expected Output** (a = 10, b = 4)**:**
+```text
+Sum: 14
+Average: 7.00
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void sum_and_average(int a, int b, int *sum, double *average) {
+    *sum = a + b;
+    *average = (double) *sum / 2;
+}
+
+int main() {
+    int a = 10, b = 4;
+    int total;
+    double avg_result;
+
+    sum_and_average(a, b, &total, &avg_result);
+
+    printf("Sum: %d\n", total);
+    printf("Average: %.2f\n", avg_result);
+    return 0;
+}
+```
+`total` and `avg_result` have no value before the call. The function fills them through their addresses.
+:::
+
+**Comprehension:** Why can't we write `int sum_and_average(...)` and return both values directly? What would go wrong if `sum` and `average` were passed by value?
+
+::: {.callout-tip collapse="true" title="Show answer"}
+A `return` statement hands back exactly one value. If `sum` and `average` were passed by value, the function would only fill in copies, and `total` and `avg_result` in `main` would stay unchanged (and uninitialized).
+:::
+
+### 21. Smaller and Larger (Optional)
+**Question:** Write a `void` function `min_and_max` that takes two integers plus two pointer parameters (`int *smaller`, `int *larger`), and fills them in with the smaller and the larger of the two.
+
+**Expected Output** (a = 7, b = 3)**:**
+```text
+Smaller: 3
+Larger: 7
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void min_and_max(int a, int b, int *smaller, int *larger) {
+    if (a < b) {
+        *smaller = a;
+        *larger = b;
+    } else {
+        *smaller = b;
+        *larger = a;
+    }
+}
+
+int main() {
+    int a = 7, b = 3;
+    int smaller_result, larger_result;
+
+    min_and_max(a, b, &smaller_result, &larger_result);
+
+    printf("Smaller: %d\n", smaller_result);
+    printf("Larger: %d\n", larger_result);
+    return 0;
+}
+```
+:::
+
+## Part 5: Arrays and Strings as Parameters
+
+When an array is passed to a function, the function receives the address of its first element, not a copy of the array. So a function can change the original array, and `sizeof(array)` inside the function no longer gives the array size. Always pass the length as a second parameter.
+
+### 22. Print an Array
+**Question:** Write a function `print_array` that takes an `int` array and its length and prints all elements on one line, separated by single spaces. Call it from `main` with `{3, 6, 9, 12}`.
+
+**Expected Output:**
+```text
+3 6 9 12
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_array(const int values[], int length) {
+    for (int i = 0; i < length; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int values[] = {3, 6, 9, 12};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+    print_array(values, length);
+    return 0;
+}
+```
+The length is calculated in `main`, where `values` is a real array. The `const` shows that `print_array` only reads the elements. The name `values` without brackets passes the address of the array.
+:::
+
+### 23. Why Pass the Length?
+**Question:** Predict the output. Assume `int` has `4` bytes and a pointer has `8` bytes.
+
+**The Code:**
+```c
+#include <stdio.h>
+
+void show_size(int values[]) {
+    printf("%zu\n", sizeof(values));
+}
+
+int main() {
+    int values[5] = {1, 2, 3, 4, 5};
+    printf("%zu\n", sizeof(values));
+    show_size(values);
+    return 0;
+}
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+**Output:**
+```text
+20
+8
+```
+In `main`, `values` is an array of `5` ints, so its size is `5 * 4 = 20` bytes. In the function, `int values[]` is really a pointer, and `sizeof` gives the size of a pointer. This is why `sizeof(values) / sizeof(values[0])` only works where the array is declared.
+:::
+
+### 24. Sum of an Array
+**Question:** Write a function `array_sum` that takes an `int` array and its length and returns the sum of all elements. Call it with `{4, 8, 15, 16, 23}`.
+
+**Expected Output:**
+```text
+Sum: 66
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int array_sum(const int values[], int length) {
+    int sum = 0;
+    for (int i = 0; i < length; i++) {
+        sum += values[i];
+    }
+    return sum;
+}
+
+int main() {
+    int values[] = {4, 8, 15, 16, 23};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+    printf("Sum: %d\n", array_sum(values, length));
+    return 0;
+}
+```
+`sum` starts at `0` and collects every element. The function ends with a `return`, so the caller decides what to do with the result.
+:::
+
+### 25. Change an Array Inside a Function
+**Question:** Write a function `double_all` that takes an `int` array and its length and doubles every element. Call it from `main` with `{1, 2, 3, 4}`, then print the array with `print_array` from exercise 22.
+
+**Expected Output:**
+```text
+2 4 6 8
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_array(const int values[], int length) {
+    for (int i = 0; i < length; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+}
+
+void double_all(int values[], int length) {
+    for (int i = 0; i < length; i++) {
+        values[i] = values[i] * 2;
+    }
+}
+
+int main() {
+    int values[] = {1, 2, 3, 4};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+
+    double_all(values, length);
+    print_array(values, length);
+    return 0;
+}
+```
+Unlike a single `int` (exercise 15), the array is changed in `main`, because the function works on the original elements. There is no `const` here, because this function is meant to change the array.
+:::
+
+### 26. Largest Element
+**Question:** Write a function `find_max` that takes an `int` array and its length and returns the largest element. Do not assume the values are positive. Call it with `{7, -3, 12, 0, 5}`.
+
+**Expected Output:**
+```text
+Largest: 12
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int find_max(const int values[], int length) {
+    int largest = values[0];
+    for (int i = 1; i < length; i++) {
+        if (values[i] > largest) {
+            largest = values[i];
+        }
+    }
+    return largest;
+}
+
+int main() {
+    int values[] = {7, -3, 12, 0, 5};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+    printf("Largest: %d\n", find_max(values, length));
+    return 0;
+}
+```
+Starting from `values[0]` instead of `0` also works when all values are negative. The loop starts at `1`, because the first element is already the starting value.
+:::
+
+### 27. Count Occurrences (Optional)
+**Question:** Write a function `count_value` that takes an `int` array, its length, and a target value, and returns how many times the target appears. Call it with `{3, 5, 3, 7, 3, 1, 5, 3}` and target `3`.
+
+**Expected Output:**
+```text
+Count: 4
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int count_value(const int values[], int length, int target) {
+    int count = 0;
+    for (int i = 0; i < length; i++) {
+        if (values[i] == target) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    int values[] = {3, 5, 3, 7, 3, 1, 5, 3};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+    printf("Count: %d\n", count_value(values, length, 3));
+    return 0;
+}
+```
+:::
+
+### 28. Find an Index
+**Question:** Write a function `find_index` that takes an `int` array, its length, and a target value. It returns the index of the first match, or `-1` if the target is not in the array. Call it with `{8, 3, 11, 5, 20}` and the targets `5` and `7`.
+
+**Hint:** `-1` can never be a valid index, so it is a safe way to say "not found". Return as soon as you find a match.
+
+**Expected Output:**
+```text
+Index of 5: 3
+Index of 7: -1
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int find_index(const int values[], int length, int target) {
+    for (int i = 0; i < length; i++) {
+        if (values[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int values[] = {8, 3, 11, 5, 20};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+    printf("Index of 5: %d\n", find_index(values, length, 5));
+    printf("Index of 7: %d\n", find_index(values, length, 7));
+    return 0;
+}
+```
+A `return` inside the loop ends the whole function immediately, so no `break` is needed. The `return -1;` after the loop is only reached when no element matched.
+:::
+
+### 29. Reverse an Array in Place
+**Question:** Write a function `reverse_array` that takes an `int` array and its length and reverses the elements inside the same array. Use one loop that swaps the first with the last, the second with the second to last, and so on. Call it with `{1, 2, 3, 4, 5, 6}` and print the result with `print_array`.
+
+**Expected Output:**
+```text
+6 5 4 3 2 1
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_array(const int values[], int length) {
+    for (int i = 0; i < length; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+}
+
+void reverse_array(int values[], int length) {
+    for (int i = 0; i < length / 2; i++) {
+        int temp = values[i];
+        values[i] = values[length - 1 - i];
+        values[length - 1 - i] = temp;
+    }
+}
+
+int main() {
+    int values[] = {1, 2, 3, 4, 5, 6};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+
+    reverse_array(values, length);
+    print_array(values, length);
+    return 0;
+}
+```
+The loop runs for half of the array. Going through the whole array would swap every pair twice and restore the original order.
+:::
+
+### 30. Length of a String
+**Question:** Write a function `my_strlen` that takes a string and returns the number of characters before the terminator `'\0'`. Do not use `strlen`. Call it with `"Bielefeld"`.
+
+**Hint:** A string is a `char` array that ends with `'\0'`, so no length parameter is needed. Count until you reach the terminator.
+
+**Expected Output:**
+```text
+Length: 9
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int my_strlen(const char text[]) {
+    int length = 0;
+    while (text[length] != '\0') {
+        length++;
+    }
+    return length;
+}
+
+int main() {
+    printf("Length: %d\n", my_strlen("Bielefeld"));
+    return 0;
+}
+```
+Strings are the exception to "always pass the length", because the `'\0'` at the end marks where the text stops. The terminator itself is not counted.
+:::
+
+## Part 6: Mixed Practice
+
+### 31. Prime Check
+**Question:** Write a function `is_prime` that takes an `int` and returns `1` if it is a prime number and `0` otherwise. In `main`, use it to print all primes from `1` to `20` on one line separated by spaces.
+
+**Hint:** Numbers below `2` are not prime. A number `n` is not prime if any number from `2` up to `n - 1` divides it without a remainder.
+
+**Expected Output:**
+```text
+2 3 5 7 11 13 17 19
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int is_prime(int n) {
+    if (n < 2) {
+        return 0;
+    }
+    for (int i = 2; i < n; i++) {
+        if (n % i == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() {
+    int first = 1;
+    for (int n = 1; n <= 20; n++) {
+        if (is_prime(n)) {
+            if (!first) {
+                printf(" ");
+            }
+            printf("%d", n);
+            first = 0;
+        }
+    }
+    printf("\n");
+    return 0;
+}
+```
+A function that returns `1` or `0` can be used directly as a condition: `if (is_prime(n))`. The variable `first` prints a space before every number except the first one.
+:::
+
+### 32. Factorial and Power
+**Question:** Write `factorial`, which takes an `int n` and returns `n!` as an `unsigned long long`, and `power`, which takes an `int base` and an `int exponent` (not negative) and returns `base` to the power of `exponent` as an `int`. Do not use `pow`. Print `factorial(5)`, `power(2, 10)`, and `power(3, 4)`.
+
+**Expected Output:**
+```text
+120
+1024
+81
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+unsigned long long factorial(int n) {
+    unsigned long long result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+int power(int base, int exponent) {
+    int result = 1;
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+int main() {
+    printf("%llu\n", factorial(5));
+    printf("%d\n", power(2, 10));
+    printf("%d\n", power(3, 4));
+    return 0;
+}
+```
+Both results start at `1`, the neutral element of multiplication. `%llu` is the format specifier for `unsigned long long`. An exponent of `0` skips the loop and returns `1`, which is correct.
+:::
+
+### 33. Greatest Common Divisor (Optional)
+**Question:** Write a function `gcd` that takes two positive integers and returns their greatest common divisor. Use Euclid's algorithm: while `b` is not `0`, replace `a` with `b` and `b` with `a % b`. Print `gcd(48, 18)`.
+
+**Expected Output:**
+```text
+6
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int remainder = a % b;
+        a = b;
+        b = remainder;
+    }
+    return a;
+}
+
+int main() {
+    printf("%d\n", gcd(48, 18));
+    return 0;
+}
+```
+The steps are `(48, 18)`, `(18, 12)`, `(12, 6)`, `(6, 0)`, so the answer is `6`. Because parameters are copies, the function can change `a` and `b` freely without touching the caller's variables.
+:::
+
+### 34. Recursive Factorial (Optional)
+**Question:** Write `factorial` again, but without a loop: a function may call itself. Use the rule `n! = n * (n - 1)!` and the stopping case `0! = 1`. Print `factorial(5)`.
+
+**Expected Output:**
+```text
+120
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+unsigned long long factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+int main() {
+    printf("%llu\n", factorial(5));
+    return 0;
+}
+```
+`factorial(5)` calls `factorial(4)`, which calls `factorial(3)`, and so on until `factorial(1)` returns `1`. The results are then multiplied on the way back. Without the stopping case, the function would call itself forever.
+:::
+
+### 35. Decimal to Binary as a Function
+**Question:** Write a `void` function `print_binary` that takes a non-negative `int` and prints its binary representation. Store the remainders of the repeated division by `2` in an array, then print them in reverse order. Handle `0` explicitly. Call it with `13` and `0`.
+
+**Expected Output:**
+```text
+1101
+0
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_binary(int number) {
+    int bits[32];
+    int count = 0;
+
+    if (number == 0) {
+        printf("0\n");
+        return;
+    }
+
+    while (number > 0) {
+        bits[count] = number % 2;
+        count++;
+        number = number / 2;
+    }
+
+    for (int i = count - 1; i >= 0; i--) {
+        printf("%d", bits[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    print_binary(13);
+    print_binary(0);
+    return 0;
+}
+```
+A `return;` without a value ends a `void` function early. Changing `number` inside the function does not affect the caller, because `number` is a copy.
+:::
+
+### 36. Score Statistics
+**Question:** Write a function `score_statistics` that takes an `int` array and its length, plus three pointer parameters: `int *highest`, `int *lowest`, and `double *average`. It fills all three. In `main`, call it with `{70, 85, 90, 60, 95}` and print the three results, the average with two decimal places.
+
+**Expected Output:**
+```text
+Highest: 95
+Lowest: 60
+Average: 80.00
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void score_statistics(const int scores[], int length,
+                      int *highest, int *lowest, double *average) {
+    int sum = scores[0];
+    *highest = scores[0];
+    *lowest = scores[0];
+
+    for (int i = 1; i < length; i++) {
+        sum += scores[i];
+        if (scores[i] > *highest) {
+            *highest = scores[i];
+        }
+        if (scores[i] < *lowest) {
+            *lowest = scores[i];
+        }
+    }
+    *average = (double) sum / length;
+}
+
+int main() {
+    int scores[] = {70, 85, 90, 60, 95};
+    int length = (int)(sizeof(scores) / sizeof(scores[0]));
+    int highest, lowest;
+    double average;
+
+    score_statistics(scores, length, &highest, &lowest, &average);
+
+    printf("Highest: %d\n", highest);
+    printf("Lowest: %d\n", lowest);
+    printf("Average: %.2f\n", average);
+    return 0;
+}
+```
+This combines the array parameter (array and length) with the pointer pattern from exercises 20 and 21. One function returns three results, so it does not return anything directly.
+:::
+
+### 37. Final Challenge: Sort with a Function (Optional)
+**Question:** Write a function `bubble_sort` that takes an `int` array and its length and sorts the array in ascending order. Repeatedly compare neighbouring elements and swap them if the left one is larger. Write a helper function `swap` that takes two pointers and exchanges the values, and use it inside `bubble_sort`. Sort `{5, 2, 9, 1, 7}` and print the result with `print_array`.
+
+**Expected Output:**
+```text
+1 2 5 7 9
+```
+
+::: {.callout-tip collapse="true" title="Show answer"}
+```c
+#include <stdio.h>
+
+void print_array(const int values[], int length) {
+    for (int i = 0; i < length; i++) {
+        if (i > 0) {
+            printf(" ");
+        }
+        printf("%d", values[i]);
+    }
+    printf("\n");
+}
+
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void bubble_sort(int values[], int length) {
+    for (int pass = 0; pass < length - 1; pass++) {
+        for (int i = 0; i < length - 1 - pass; i++) {
+            if (values[i] > values[i + 1]) {
+                swap(&values[i], &values[i + 1]);
+            }
+        }
+    }
+}
+
+int main() {
+    int values[] = {5, 2, 9, 1, 7};
+    int length = (int)(sizeof(values) / sizeof(values[0]));
+
+    bubble_sort(values, length);
+    print_array(values, length);
+    return 0;
+}
+```
+`&values[i]` is the address of one element, so `swap` from exercise 18 works on array elements too. After each pass the largest remaining value is at the end, so the inner loop can stop one position earlier (`length - 1 - pass`). Splitting the work into `swap`, `bubble_sort`, and `print_array` keeps every function short and reusable.
+:::
